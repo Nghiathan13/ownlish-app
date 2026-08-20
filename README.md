@@ -2,6 +2,10 @@
 
 Local design tool for testing and designing UI patterns (colors, sizes, corner radius, blocks).
 
+## Documentation
+
+- [STRUCTURE.md](STRUCTURE.md) — app structure
+
 ## Development
 
 - `pnpm tauri dev` — run with hot reload
