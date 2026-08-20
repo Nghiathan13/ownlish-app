@@ -1,7 +1,9 @@
-# Tauri + Vanilla TS
+# design-studio
 
-This template should help get you started developing with Tauri in vanilla HTML, CSS and Typescript.
+Local design tool for testing and designing UI patterns (colors, sizes, corner radius, blocks).
 
-## Recommended IDE Setup
+## Development
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+- `pnpm tauri dev` — run with hot reload
+- `pnpm build` — type-check and build the frontend
+- `pnpm tauri build` — build the distributable app
