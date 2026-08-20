@@ -67,8 +67,6 @@ design-studio/
     └── icons/                      # app icons
 ```
 
-Note: `app/`, `pages/`, `widgets/`, `features/`, `entities/` are the target layout (to be built); current `src/main.ts` → `app/entrypoint/main.ts`, `src/styles.css` → `app/styles/`.
-
 ## Layer rules
 
 - Dependency direction is one-way: app → pages → widgets → features → entities → shared
