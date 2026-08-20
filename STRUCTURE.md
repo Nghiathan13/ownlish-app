@@ -1,7 +1,7 @@
 # design-studio — Structure
 
 Frontend: vanilla TypeScript (no UI framework) in `src/`, Tauri 2 shell in `src-tauri/`.
-Structure only — usage in README.md.
+Architecture: Feature-Sliced Design v2.1 (feature-sliced.design).
 
 ## Directory tree
 
@@ -15,24 +15,48 @@ design-studio/
 ├── README.md
 ├── STRUCTURE.md                    # this file
 ├── src/                            # frontend
-│   ├── app/                        # bootstrap + shell
-│   │   ├── main.ts                 # entry point
-│   │   ├── layout.ts               # app shell: controls + canvas
-│   │   └── layout.css
-│   ├── pages/                      # screen composition
-│   │   ├── workspace.ts            # workspace page
-│   │   └── workspace.css
-│   ├── features/                   # one folder per capability
-│   │   ├── color-picker/           # color tokens editor
-│   │   ├── size-control/           # size/spacing tokens editor
-│   │   ├── radius-control/         # radius tokens editor
-│   │   └── block-canvas/           # block patterns render + select
-│   ├── entities/                   # models + stores
-│   │   ├── token/                  # design token model, store, CSS var sync
-│   │   └── pattern/                # block/pattern model
-│   └── shared/                     # no upward imports
-│       ├── lib/                    # pure utils: color math, dom, storage
-│       └── styles/                 # reset.css, variables.css, typography.css, global.css
+│   ├── app/                        # layer: bootstrap + global, no slices
+│   │   ├── entrypoint/
+│   │   │   └── main.ts             # app entry
+│   │   └── styles/                 # global styles
+│   │       ├── reset.css
+│   │       ├── typography.css
+│   │       └── global.css
+│   ├── pages/                      # layer
+│   │   └── workspace/              # slice: main screen
+│   │       ├── index.ts            # public API
+│   │       └── ui/                 # page shell: canvas + control panels
+│   │           ├── workspace.ts
+│   │           └── workspace.css
+│   ├── widgets/                    # layer
+│   │   └── block-canvas/           # slice: block pattern canvas
+│   │       ├── index.ts            # public API
+│   │       └── ui/                 # render + selection
+│   │           ├── canvas.ts
+│   │           └── canvas.css
+│   ├── features/                   # layer
+│   │   ├── color-picker/           # slice: color token editor
+│   │   │   ├── index.ts            # public API
+│   │   │   ├── ui/                 # control DOM + css
+│   │   │   └── model/              # interaction state
+│   │   ├── size-control/           # slice: size/spacing token editor
+│   │   │   ├── index.ts
+│   │   │   ├── ui/
+│   │   │   └── model/
+│   │   └── radius-control/         # slice: radius token editor
+│   │       ├── index.ts
+│   │       ├── ui/
+│   │       └── model/
+│   ├── entities/                   # layer
+│   │   ├── token/                  # slice: design token
+│   │   │   ├── index.ts            # public API
+│   │   │   └── model/              # types, defaults, store, CSS var sync
+│   │   └── pattern/                # slice: block/pattern model
+│   │       ├── index.ts
+│   │       └── model/              # block tree model
+│   └── shared/                     # layer: no slices
+│       ├── lib/                    # focused utils: color, dom, storage
+│       └── ui/                     # UI kit: base primitives, no business logic
 └── src-tauri/                      # Rust shell
     ├── src/
     │   ├── main.rs                 # binary entry
@@ -43,22 +67,22 @@ design-studio/
     └── icons/                      # app icons
 ```
 
-Note: `app/`, `pages/`, `features/`, `entities/` are the target layout (to be built); current `src/main.ts` + `src/styles.css` move into it.
+Note: `app/`, `pages/`, `widgets/`, `features/`, `entities/` are the target layout (to be built); current `src/main.ts` → `app/entrypoint/main.ts`, `src/styles.css` → `app/styles/`.
 
 ## Layer rules
 
-- Dependency direction is one-way: app → pages → features → entities → shared
-- `shared/` imports nothing above itself
-- `entities/` imports `shared/` only
-- `features/` import `entities/` + `shared/`
-- `pages/` compose features
-- `app/` wires pages + bootstrap
+- Dependency direction is one-way: app → pages → widgets → features → entities → shared
+- A module imports only from layers strictly below
+- Slices on the same layer cannot import each other
+- Code outside a slice imports it only via its public API (`index.ts`)
+- `app/` and `shared/` have no slices; their segments import each other freely
 
 ## Naming
 
-- Files: kebab-case (`color-picker.ts`)
-- CSS: one file per module, same basename; BEM `block__element--modifier`
-- TS: PascalCase types/classes, camelCase functions/variables
+- Layers: fixed FSD names (app, pages, widgets, features, entities, shared)
+- Slices: business domain, kebab-case (`color-picker`)
+- Segments: standard names `ui`, `model`, `lib`, `api`, `config` — purpose, not essence (no `components`, `hooks`, `types`)
+- Files: kebab-case; CSS one file per module, BEM `block__element--modifier`; TS PascalCase types/classes, camelCase functions
 
 ## Rust (`src-tauri/`)
 
