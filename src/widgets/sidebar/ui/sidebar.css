@@ -20,6 +20,6 @@
   .shell__sidebar--expanded .button--ghost {
     width: 100%;
     justify-content: flex-start;
-    padding: 0 12px;
+    padding: 0 10px;
   }
 }
