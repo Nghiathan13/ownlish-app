@@ -30,9 +30,12 @@
     background-color: var(--color-pressed);
   }
 
-  .shell__nav--active,
-  .shell__nav--active:hover {
+  .shell__nav--active {
     background-color: var(--color-accent);
+  }
+
+  .shell__nav--active:hover {
+    background-color: var(--color-accent-hover);
   }
 
   .shell__nav:focus-visible {

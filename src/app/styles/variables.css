@@ -14,6 +14,7 @@
 
     /* solid container for active/selected surfaces (shadcn accent) */
     --color-accent: light-dark(#f4f4f4, #333);
+    --color-accent-hover: color-mix(in srgb, var(--color-text) 8%, var(--color-accent));
 
     /* typography — root sizes in px, everything else in rem */
     --font-family-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
