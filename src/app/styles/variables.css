@@ -21,5 +21,8 @@
     --font-size-base: 16px;
     --font-size-sm: 0.75rem;
     --line-height: 1.5;
+
+    /* shape — card/container radius (M3 medium, Tailwind rounded-xl) */
+    --radius: 0.75rem;
   }
 }
