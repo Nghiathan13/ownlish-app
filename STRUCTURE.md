@@ -48,8 +48,11 @@ ownlish/
 │   │   │   └── catalog-store.ts     # zustand/vanilla store: catalog + load status
 │   │   └── api/
 │   │       ├── loadCatalog.ts       # invoke("read_catalog")
-│   │       └── loadTestParts.ts     # invoke("read_content_files") — preload part JSON
+│   │       ├── loadTestParts.ts     # invoke("read_content_files") — preload part JSON
+│   │       └── test-parts-query.ts  # TanStack query: cached preload (5 min fresh)
 │   └── shared/                      # layer: no slices
+│       ├── api/
+│       │   └── query-client.ts      # TanStack Query client (short-lived cache defaults)
 │       ├── lib/                    # trống (.gitkeep)
 │       └── ui/                     # trống (.gitkeep)
 └── src-tauri/                      # Rust shell

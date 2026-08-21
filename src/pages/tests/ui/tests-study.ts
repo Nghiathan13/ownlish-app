@@ -1,6 +1,7 @@
 import "./tests-study.css";
 import type { CatalogTest } from "@/entities/toeic-catalog";
-import { loadTestParts } from "@/entities/toeic-catalog";
+import { fetchTestParts } from "@/entities/toeic-catalog";
+import { queryClient } from "@/shared/api";
 
 export function renderTestsStudyPage(root: HTMLElement, test: CatalogTest): void {
   root.replaceChildren();
@@ -19,8 +20,8 @@ export function renderTestsStudyPage(root: HTMLElement, test: CatalogTest): void
   page.append(text, part1);
   root.append(page);
 
-  // preload all part JSONs, then show part 1 verbatim
-  loadTestParts(test)
+  // cached preload: fresh entries (5 min) skip the fs read
+  fetchTestParts(queryClient, test)
     .then((parts) => {
       const first = parts[0];
       if (!first) {

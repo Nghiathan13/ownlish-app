@@ -1,5 +1,6 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { mockIPC } from "@tauri-apps/api/mocks";
+import { queryClient } from "@/shared/api";
 import type { CatalogTest } from "@/entities/toeic-catalog";
 import { renderTestsStudyPage } from "./tests-study";
 
@@ -12,6 +13,10 @@ const test: CatalogTest = {
     { number: 2, path: "content/toeic/ets19-t01/part_2.json", questionCount: 25 },
   ],
 };
+
+beforeEach(() => {
+  queryClient.clear();
+});
 
 afterEach(() => {
   vi.restoreAllMocks();
