@@ -13,8 +13,13 @@
     cursor: pointer;
   }
 
+  /* M3 state layers — on-color overlay at fixed opacity (8% hover, 10% pressed) */
   .tests__card:hover {
-    border-color: var(--color-text);
+    background-color: var(--color-hover);
+  }
+
+  .tests__card:active {
+    background-color: var(--color-pressed);
   }
 
   .tests__card:focus-visible {
