@@ -32,6 +32,14 @@ describe("createRouter", () => {
     expect(root.querySelector(".test__text")?.textContent).toBe("ets19-t01");
   });
 
+  it("navigates to the study page when a card is clicked", () => {
+    const root = document.createElement("div");
+    const navigate = createRouter(root);
+    navigate("tests");
+    root.querySelector<HTMLButtonElement>("button.tests__card")?.click();
+    expect(root.querySelector(".test__text")?.textContent).toBe("ets19-t01");
+  });
+
   it("falls back to the overview when navigating to test without a test", () => {
     const root = document.createElement("div");
     createRouter(root)("test");

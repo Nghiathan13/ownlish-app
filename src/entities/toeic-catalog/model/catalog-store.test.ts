@@ -61,4 +61,15 @@ describe("catalogStore", () => {
       error: "read failed",
     });
   });
+
+  it("falls back to String(error) for non-Error rejections", async () => {
+    mockLoad.mockRejectedValue("plain string failure");
+
+    await catalogStore.getState().load();
+
+    expect(catalogStore.getState()).toMatchObject({
+      status: "error",
+      error: "plain string failure",
+    });
+  });
 });

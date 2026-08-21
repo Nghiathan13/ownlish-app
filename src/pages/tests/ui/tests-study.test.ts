@@ -62,4 +62,20 @@ describe("renderTestsStudyPage", () => {
       expect.stringContaining("2 part files loaded, 1 with content"),
     );
   });
+
+  it("logs preload failures via console.error", async () => {
+    mockIPC(() => {
+      throw new Error("fs error");
+    });
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    const root = document.createElement("div");
+    renderTestsStudyPage(root, test);
+
+    await vi.waitFor(() => expect(errorSpy).toHaveBeenCalledOnce());
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("preload failed for ets19-t01"),
+      expect.any(Error),
+    );
+  });
 });

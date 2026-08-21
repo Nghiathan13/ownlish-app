@@ -24,12 +24,15 @@
 
 - Framework: Vitest 4 + jsdom; config lives in `vite.config.ts` (shares the Vite pipeline and `@/` alias)
 - Setup: `vitest.setup.ts` — WebCrypto polyfill for jsdom + `clearMocks()` after each test
-- Command: `pnpm test` (CI, single run) / `pnpm test:watch` (dev)
+- Command: `pnpm test` (CI, single run) / `pnpm test:watch` (dev) / `pnpm test:coverage` (coverage + gate)
 - Tests are colocated: `*.test.ts` next to the code, inside the same segment
 - Tauri IPC is mocked with the official `@tauri-apps/api/mocks` `mockIPC()` — no Rust backend runs
-- Coverage (21 tests):
+- Coverage gate (enforced in CI): statements/branches/functions/lines ≥ 90% — current: 98/94/100/98
+- Rust unit tests: `cargo test` (src-tauri) — path-safety of `read_content_files` (absolute/`..`/symlink escape)
+- Coverage (26 tests):
+  - `app/entrypoint` — main.ts bootstrap (load → overview render, catalog failure message)
+  - `app/routes` — router (tests ↔ test navigation, card click, fallback)
   - `entities/toeic-catalog/api` — loadCatalog (`read_catalog` + JSON parse), loadTestParts (paths + mapping)
-  - `entities/toeic-catalog/model` — catalog-store (idle → loading → ready / error transitions)
+  - `entities/toeic-catalog/model` — catalog-store (idle → loading → ready / error / non-Error rejection)
   - `pages/tests/lib` — buildTestCardViewModel (ETS/YBM labels, complete = 7 parts)
-  - `pages/tests/ui` — test-card (button/title/click), tests-overview (grid + selection), tests-study (render + part preload)
-  - `app/routes` — router (tests ↔ test navigation, fallback)
+  - `pages/tests/ui` — test-card (button/title/click), tests-overview (grid + selection), tests-study (render + preload + failure)
