@@ -1,6 +1,6 @@
 import "./test-card.css";
 import type { CatalogTest } from "@/entities/toeic-catalog";
-import type { TestCardViewModel } from "../model/tests";
+import type { TestCardViewModel } from "../lib/tests";
 
 export function renderTestCard(
   model: TestCardViewModel,

@@ -17,7 +17,10 @@ ownlish/
 ├── src/                            # frontend
 │   ├── app/                        # layer: bootstrap + global, no slices
 │   │   ├── entrypoint/
-│   │   │   └── main.ts             # app entry
+│   │   │   └── main.ts             # app entry (thin: mount root + start router)
+│   │   ├── routes/                 # router config
+│   │   │   ├── index.ts
+│   │   │   └── router.ts           # in-memory router: tests <-> test
 │   │   └── styles/                 # global styles
 │   │       ├── variables.css       # design tokens (only place for literal colors)
 │   │       ├── reset.css
@@ -30,7 +33,7 @@ ownlish/
 │   │       └── test.css
 │   ├── pages/tests/                 # slice: tests list (cards grid)
 │   │   ├── index.ts                 # public API
-│   │   ├── model/
+│   │   ├── lib/
 │   │   │   └── tests.ts             # view-model: series label, complete, ...
 │   │   └── ui/
 │   │       ├── tests.ts
