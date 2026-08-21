@@ -1,12 +1,25 @@
 @layer components {
   .tests {
+    height: 100%;
+    padding: 24px;
+    overflow-y: auto;
+  }
+
+  .tests__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  /* inverted tokens: card bg = text color, card text = surface color —
+     visible on both themes without extra color tokens */
+  .tests__card {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
-  }
-
-  .tests__text {
-    color: var(--color-text);
+    padding: 24px 12px;
+    border-radius: 12px;
+    background-color: var(--color-text);
+    color: var(--color-surface);
   }
 }
