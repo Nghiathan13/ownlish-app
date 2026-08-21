@@ -8,14 +8,8 @@ fn read_catalog(app: tauri::AppHandle) -> Result<String, String> {
         .app_data_dir()
         .map_err(|e| format!("app_data_dir: {e}"))?;
     let catalog_path = data_dir.join("ownlish-data").join("catalog.json");
-    let start = std::time::Instant::now();
     let content = std::fs::read_to_string(&catalog_path)
         .map_err(|e| format!("read {}: {e}", catalog_path.display()))?;
-    println!(
-        "[catalog] rust fs read: {:?} ({} bytes)",
-        start.elapsed(),
-        content.len()
-    );
     Ok(content)
 }
 

@@ -17,7 +17,7 @@ ownlish/
 ├── src/                            # frontend
 │   ├── app/                        # layer: bootstrap + global, no slices
 │   │   ├── entrypoint/
-│   │   │   └── main.ts             # app entry (thin: mount root + start router)
+│   │   │   └── main.ts             # bootstrap: load catalog (store) → start router
 │   │   ├── routes/                 # router config
 │   │   │   ├── index.ts
 │   │   │   └── router.ts           # in-memory router: tests <-> test
@@ -31,7 +31,7 @@ ownlish/
 │   │   ├── lib/
 │   │   │   └── tests.ts             # view-model: series label, complete, ...
 │   │   └── ui/
-│   │       ├── tests-overview.ts    # màn 1: load catalog + card grid
+│   │       ├── tests-overview.ts    # màn 1: card grid từ catalog store (load ở bootstrap)
 │   │       ├── tests-overview.css
 │   │       ├── tests-study.ts       # màn 2: preload part JSON (chưa render)
 │   │       ├── tests-study.css
@@ -42,7 +42,8 @@ ownlish/
 │   ├── entities/toeic-catalog/      # slice: catalog entity
 │   │   ├── index.ts                 # public API
 │   │   ├── model/
-│   │   │   └── types.ts             # Catalog, CatalogTest, CatalogPart, ...
+│   │   │   ├── types.ts             # Catalog, CatalogTest, CatalogPart, ...
+│   │   │   └── catalog-store.ts     # zustand/vanilla store: catalog + load status
 │   │   └── api/
 │   │       ├── loadCatalog.ts       # invoke("read_catalog")
 │   │       └── loadTestParts.ts     # invoke("read_content_files") — preload part JSON
