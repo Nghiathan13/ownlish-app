@@ -47,15 +47,18 @@ jobs:
           node-version: 22
       - name: Benchmark catalog load
         run: node scripts/bench-catalog.mjs ownlish-data/catalog.json
-      - name: Update baseline (main pushes only, on pass)
+      - name: Benchmark 7-part preload
+        run: node scripts/bench-parts.mjs ownlish-data
+      - name: Update baselines (main pushes only, on pass)
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
           node scripts/bench-catalog.mjs ownlish-data/catalog.json --update-baseline
+          node scripts/bench-parts.mjs ownlish-data --update-baseline
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .github/perf-baseline.json
+          git add .github/perf-baseline.json .github/perf-baseline-parts.json
           git diff --cached --quiet || {
-            git commit -m "ci: update perf baseline [skip ci]"
+            git commit -m "ci: update perf baselines [skip ci]"
             git push
           }
 
