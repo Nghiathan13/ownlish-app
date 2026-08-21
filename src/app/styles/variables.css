@@ -4,7 +4,7 @@
 @layer tokens {
   :root {
     /* semantic — theme-aware (light-dark() resolves via color-scheme) */
-    --color-surface: light-dark(#fff, #262626);
+    --color-surface: light-dark(#fff, #121212);
     --color-text: light-dark(#161616, #f5f5f5);
   }
 }
