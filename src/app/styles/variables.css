@@ -5,6 +5,6 @@
   :root {
     /* semantic — theme-aware (light-dark() resolves via color-scheme) */
     --color-surface: light-dark(#fff, #262626);
-    --color-text: light-dark(#171717, #f5f5f5);
+    --color-text: light-dark(#161616, #f5f5f5);
   }
 }
