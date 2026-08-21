@@ -8,8 +8,31 @@
     overflow-y: auto;
   }
 
-  .test__text {
+  .test__back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    width: 40px;
+    height: 40px;
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface);
     color: var(--color-text);
+    cursor: pointer;
+  }
+
+  .test__back:hover {
+    background-color: var(--color-hover);
+  }
+
+  .test__back:active {
+    background-color: var(--color-pressed);
+  }
+
+  .test__back:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-text);
+    outline-offset: 2px;
   }
 
   .test__part-raw {

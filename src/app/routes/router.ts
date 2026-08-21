@@ -7,7 +7,7 @@ export type Navigate = (route: RouteName, test?: CatalogTest) => void;
 export function createRouter(root: HTMLElement): Navigate {
   const navigate: Navigate = (route, test) => {
     if (route === "test" && test) {
-      renderTestsStudyPage(root, test);
+      renderTestsStudyPage(root, test, () => navigate("tests"));
     } else {
       renderTestsOverviewPage(root, (selected) => navigate("test", selected));
     }

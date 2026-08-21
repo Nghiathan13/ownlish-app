@@ -23,12 +23,24 @@ afterEach(() => {
 });
 
 describe("renderTestsStudyPage", () => {
-  it("renders the selected test id and a placeholder when no parts exist", async () => {
+  it("renders a bordered back button with an icon and calls onBack on click", () => {
     mockIPC(() => []);
     const root = document.createElement("div");
-    renderTestsStudyPage(root, test);
+    const onBack = vi.fn();
+    renderTestsStudyPage(root, test, onBack);
 
-    expect(root.querySelector(".test__text")?.textContent).toBe("ets19-t01");
+    const back = root.querySelector<HTMLButtonElement>("button.test__back");
+    expect(back).not.toBeNull();
+    expect(back?.querySelector("svg")).not.toBeNull();
+    back?.click();
+    expect(onBack).toHaveBeenCalledOnce();
+  });
+
+  it("shows a placeholder when no parts exist", async () => {
+    mockIPC(() => []);
+    const root = document.createElement("div");
+    renderTestsStudyPage(root, test, vi.fn());
+
     await vi.waitFor(() =>
       expect(root.querySelector(".test__part-raw")?.textContent).toBe(
         "no parts found",
@@ -44,7 +56,7 @@ describe("renderTestsStudyPage", () => {
     });
 
     const root = document.createElement("div");
-    renderTestsStudyPage(root, test);
+    renderTestsStudyPage(root, test, vi.fn());
 
     await vi.waitFor(() => expect(calls.length).toBe(1));
     expect(calls[0]).toEqual([
@@ -66,7 +78,7 @@ describe("renderTestsStudyPage", () => {
     ]);
 
     const root = document.createElement("div");
-    renderTestsStudyPage(root, test);
+    renderTestsStudyPage(root, test, vi.fn());
 
     await vi.waitFor(() =>
       expect(root.querySelector(".test__part-raw")?.textContent).toBe(part1),
@@ -80,7 +92,7 @@ describe("renderTestsStudyPage", () => {
     const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
     const root = document.createElement("div");
-    renderTestsStudyPage(root, test);
+    renderTestsStudyPage(root, test, vi.fn());
 
     await vi.waitFor(() =>
       expect(root.querySelector(".test__part-raw")?.textContent).toBe(

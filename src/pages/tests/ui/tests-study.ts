@@ -2,22 +2,29 @@ import "./tests-study.css";
 import type { CatalogTest } from "@/entities/toeic-catalog";
 import { fetchTestParts } from "@/entities/toeic-catalog";
 import { queryClient } from "@/shared/api";
+import { createIcon } from "@/shared/ui";
 
-export function renderTestsStudyPage(root: HTMLElement, test: CatalogTest): void {
+export function renderTestsStudyPage(
+  root: HTMLElement,
+  test: CatalogTest,
+  onBack: () => void,
+): void {
   root.replaceChildren();
 
   const page = document.createElement("div");
   page.className = "test";
 
-  const text = document.createElement("p");
-  text.className = "test__text";
-  text.textContent = test.id;
+  const back = document.createElement("button");
+  back.type = "button";
+  back.className = "test__back";
+  back.append(createIcon("arrow-left"));
+  back.addEventListener("click", onBack);
 
   // raw render of the first part file until the real part UI lands
   const part1 = document.createElement("pre");
   part1.className = "test__part-raw";
 
-  page.append(text, part1);
+  page.append(back, part1);
   root.append(page);
 
   // cached preload: fresh entries (5 min) skip the fs read
