@@ -1,20 +1,23 @@
 import { describe, expect, it } from "vitest";
-import { parseQuestions } from "./study";
+import { parseUnits } from "./study";
 
-describe("parseQuestions", () => {
-  it("returns the items of a part file", () => {
-    const questions = [{ id: "q1" }, { id: "q2" }];
-    expect(parseQuestions(JSON.stringify({ items: questions }))).toEqual(
-      questions,
-    );
+describe("parseUnits", () => {
+  it("returns items when the part has items", () => {
+    const units = [{ id: "q1" }, { id: "q2" }];
+    expect(parseUnits(JSON.stringify({ items: units }))).toEqual(units);
   });
 
-  it("returns an empty array when items are missing", () => {
-    expect(parseQuestions("{}")).toEqual([]);
-    expect(parseQuestions('{"other": true}')).toEqual([]);
+  it("returns groups as units when the part has groups (group = 1 unit)", () => {
+    const groups = [{ id: "g1", questions: [] }, { id: "g2", questions: [] }];
+    expect(parseUnits(JSON.stringify({ groups }))).toEqual(groups);
+  });
+
+  it("returns an empty array when neither items nor groups exist", () => {
+    expect(parseUnits("{}")).toEqual([]);
+    expect(parseUnits('{"other": true}')).toEqual([]);
   });
 
   it("throws on invalid JSON", () => {
-    expect(() => parseQuestions("not json{")).toThrow(SyntaxError);
+    expect(() => parseUnits("not json{")).toThrow(SyntaxError);
   });
 });

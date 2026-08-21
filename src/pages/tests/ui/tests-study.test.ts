@@ -132,6 +132,36 @@ describe("renderTestsStudyPage", () => {
     expect(next?.disabled).toBe(true);
   });
 
+  it("navigates across parts (items then groups)", async () => {
+    mockIPC(() => [
+      {
+        path: "content/toeic/ets19-t01/part_1.json",
+        content: JSON.stringify({ items: [{ id: "q1" }] }),
+      },
+      {
+        path: "content/toeic/ets19-t01/part_2.json",
+        content: JSON.stringify({
+          groups: [{ id: "g1", questions: [{ id: "q2" }] }],
+        }),
+      },
+    ]);
+    const root = document.createElement("div");
+    renderTestsStudyPage(root, test, vi.fn());
+
+    await vi.waitFor(() =>
+      expect(root.querySelector(".test__question-raw")?.textContent).toBe(
+        JSON.stringify({ id: "q1" }, null, 2),
+      ),
+    );
+    const next = root.querySelector<HTMLButtonElement>(
+      'button[aria-label="Next question"]',
+    );
+    next?.click();
+    expect(root.querySelector(".test__question-raw")?.textContent).toBe(
+      JSON.stringify({ id: "g1", questions: [{ id: "q2" }] }, null, 2),
+    );
+  });
+
   it("shows an error state when the preload fails", async () => {
     mockIPC(() => {
       throw new Error("fs error");

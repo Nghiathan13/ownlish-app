@@ -32,7 +32,7 @@ ownlish/
 │   │   ├── index.ts                 # public API
 │   │   ├── lib/
 │   │   │   ├── tests.ts             # view-model: series label, complete, ...
-│   │   │   └── study.ts             # view-model: parseQuestions (part → items)
+│   │   │   └── study.ts             # view-model: parseUnits (part → items | groups)
 │   │   └── ui/
 │   │       ├── tests-overview.ts    # màn 1: card grid từ catalog store (load ở bootstrap)
 │   │       ├── tests-overview.css

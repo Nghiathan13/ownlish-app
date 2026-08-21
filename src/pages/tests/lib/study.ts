@@ -1,10 +1,12 @@
 interface PartFileShape {
   items?: unknown[];
+  groups?: unknown[];
 }
 
-/** Parse a part file and return its questions ([] when items are missing).
- *  Throws on invalid JSON — callers handle the error state. */
-export function parseQuestions(partContent: string): unknown[] {
+/** Parse a part file into navigation units: items (single questions) or
+ *  groups (question sets — a group counts as one unit), whichever exists.
+ *  Returns [] when neither is present. Throws on invalid JSON. */
+export function parseUnits(partContent: string): unknown[] {
   const part = JSON.parse(partContent) as PartFileShape;
-  return part.items ?? [];
+  return part.items ?? part.groups ?? [];
 }

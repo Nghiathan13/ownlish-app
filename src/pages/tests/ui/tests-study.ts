@@ -4,7 +4,7 @@ import { fetchTestParts } from "@/entities/toeic-catalog";
 import { queryClient } from "@/shared/api";
 import { renderTestsTopnav } from "./tests-topnav";
 import { renderTestsBotnav } from "./tests-botnav";
-import { parseQuestions } from "../lib/study";
+import { parseUnits } from "../lib/study";
 
 export function renderTestsStudyPage(
   root: HTMLElement,
@@ -16,11 +16,11 @@ export function renderTestsStudyPage(
   const page = document.createElement("div");
   page.className = "test";
 
-  // raw render of the current question until the real question UI lands
+  // raw render of the current unit (item or group) until the real UI lands
   const questionRaw = document.createElement("pre");
   questionRaw.className = "test__question-raw";
 
-  const state = { questions: [] as unknown[], index: 0 };
+  const state = { units: [] as unknown[], index: 0 };
 
   const botnav = renderTestsBotnav({
     // buttons are disabled at the boundaries — no extra guards needed
@@ -35,31 +35,29 @@ export function renderTestsStudyPage(
   });
 
   function renderQuestion(): void {
-    const question = state.questions[state.index];
-    questionRaw.textContent = question
-      ? JSON.stringify(question, null, 2)
-      : "";
+    const unit = state.units[state.index];
+    questionRaw.textContent = unit ? JSON.stringify(unit, null, 2) : "";
     botnav.setNavigation(
       state.index > 0,
-      state.index < state.questions.length - 1,
+      state.index < state.units.length - 1,
     );
   }
 
   page.append(renderTestsTopnav(onBack), questionRaw, botnav.element);
   root.append(page);
 
-  // preload all part JSONs (short-lived cache), then show question 1 verbatim
+  // preload all part JSONs (short-lived cache), flatten their units,
+  // then show the first one verbatim
   fetchTestParts(queryClient, test)
     .then((parts) => {
-      const first = parts[0];
-      if (!first) {
+      if (parts.length === 0) {
         questionRaw.textContent = "no parts found";
         botnav.setNavigation(false, false);
         return;
       }
-      state.questions = parseQuestions(first.content);
+      state.units = parts.flatMap((part) => parseUnits(part.content));
       state.index = 0;
-      if (state.questions.length === 0) {
+      if (state.units.length === 0) {
         questionRaw.textContent = "no questions found";
         botnav.setNavigation(false, false);
         return;
