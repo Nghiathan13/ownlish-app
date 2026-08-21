@@ -1,4 +1,4 @@
 {
-  "baselineMs": 1,
-  "thresholdMs": 5
+  "baselineMs": 5,
+  "thresholdMs": 150
 }

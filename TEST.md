@@ -33,6 +33,7 @@
 - Rust checks: `pnpm run test:rust`, `cd src-tauri && cargo fmt --check`, and `cargo clippy -- -D warnings`
 - Rust unit tests are colocated with their modules: `commands/catalog.rs` covers app-data path composition; `services/catalog.rs` covers the service boundary; `storage/paths.rs` covers absolute/`..`/symlink/missing-file safety; `storage/catalog_files.rs` covers catalog/content reads; `models/ipc.rs` and `error.rs` pin IPC serialization.
 - Part preload is cached short-term via TanStack Query (`shared/api/query-client.ts` — staleTime/gcTime 5 min, no retry; `entities/toeic-catalog/api/test-parts-query.ts`)
+- E2E performance gates: `scripts/bench-catalog.mjs` measures page navigation to the catalog overview plus the next animation frame; `scripts/bench-parts.mjs` measures test-card click to the first question DOM update plus the next animation frame. Both launch Tauri and drive the WebKit inspector without app-side instrumentation. CI runs them under Xvfb and compares 100-sample p95 against 150ms catalog and 50ms parts.
 - Coverage (72 tests):
   - `app/entrypoint` — main.ts bootstrap (load → overview render, catalog failure message)
   - `app/routes` — router (tests ↔ test navigation, card click, fallback)
