@@ -2,7 +2,7 @@ import "../styles/variables.css";
 import "../styles/reset.css";
 import "../styles/typography.css";
 import "../styles/global.css";
-import { createRouter } from "@/app/routes";
+import { createRouter } from "../routes";
 
 const app = document.querySelector<HTMLDivElement>("#app");
 
