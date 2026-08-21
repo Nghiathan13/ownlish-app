@@ -3,20 +3,20 @@ import { createIcon, ICONS } from "./icon";
 
 describe("createIcon", () => {
   it("creates a span wrapping the icon svg", () => {
-    const icon = createIcon("play");
+    const icon = createIcon("arrow-left");
     expect(icon.tagName).toBe("SPAN");
     expect(icon.classList.contains("icon")).toBe(true);
     expect(icon.querySelector("svg")).not.toBeNull();
   });
 
   it("applies the requested size", () => {
-    const icon = createIcon("check", 24);
+    const icon = createIcon("arrow-left", 24);
     expect(icon.style.width).toBe("24px");
     expect(icon.style.height).toBe("24px");
   });
 
   it("is decorative (aria-hidden)", () => {
-    const icon = createIcon("menu");
+    const icon = createIcon("arrow-left");
     expect(icon.getAttribute("aria-hidden")).toBe("true");
   });
 
