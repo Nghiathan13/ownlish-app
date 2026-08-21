@@ -3,6 +3,7 @@ name: CI
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   # FSD structure + CSS governance + typecheck/build
@@ -44,8 +45,8 @@ jobs:
           node-version: 22
       - name: Benchmark catalog load
         run: node scripts/bench-catalog.mjs ownlish-data/catalog.json
-      - name: Update baseline (main only, on pass)
-        if: github.ref == 'refs/heads/main'
+      - name: Update baseline (main pushes only, on pass)
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
           node scripts/bench-catalog.mjs ownlish-data/catalog.json --update-baseline
           git config user.name "github-actions[bot]"
@@ -56,10 +57,10 @@ jobs:
             git push
           }
 
-  # Deploy gate — only runs when checks AND perf pass
+  # Deploy gate — only runs when checks AND perf pass (push events only)
   deploy:
     needs: [checks, perf]
-    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
+    if: (github.ref == 'refs/heads/main' && github.event_name == 'push') || startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
