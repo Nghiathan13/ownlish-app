@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     flex-shrink: 0;
-    padding: 12px 24px;
+    padding: 8px;
     border-bottom: var(--border-width) solid var(--color-border);
   }
 }
