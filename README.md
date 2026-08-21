@@ -5,6 +5,7 @@ Local design tool for testing and designing UI patterns (colors, sizes, corner r
 ## Documentation
 
 - [STRUCTURE.md](STRUCTURE.md) — app structure
+- [TEST.md](TEST.md) — tests
 
 ## Development
 
