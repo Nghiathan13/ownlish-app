@@ -6,7 +6,7 @@ export function renderWorkspace(root: HTMLElement): void {
 
   const text = document.createElement("p");
   text.className = "workspace__text";
-  text.textContent = "design-studio";
+  text.textContent = "ownlish";
 
   page.append(text);
   root.append(page);

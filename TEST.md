@@ -1,4 +1,4 @@
-# design-studio — Tests
+# ownlish — Tests
 
 ## FSD structure
 

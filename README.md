@@ -1,6 +1,6 @@
-# design-studio
+# ownlish
 
-Local design tool for testing and designing UI patterns (colors, sizes, corner radius, blocks).
+Local English learning app (desktop, Tauri 2 + vanilla TypeScript).
 
 ## Documentation
 

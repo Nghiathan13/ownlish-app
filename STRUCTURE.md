@@ -1,12 +1,12 @@
-# design-studio — Structure
+# ownlish — Structure
 
 Frontend: vanilla TypeScript (no UI framework) in `src/`, Tauri 2 shell in `src-tauri/`.
 Architecture: Feature-Sliced Design v2.1 (feature-sliced.design).
 
-## Directory tree
+## Directory tree (skeleton hiện tại — thật)
 
 ```
-design-studio/
+ownlish/
 ├── index.html                      # entry HTML, mounts #app
 ├── package.json                    # deps + scripts
 ├── pnpm-workspace.yaml             # pnpm 11 config (allowBuilds)
@@ -23,41 +23,13 @@ design-studio/
 │   │       ├── reset.css
 │   │       ├── typography.css
 │   │       └── global.css
-│   ├── pages/                      # layer
-│   │   └── workspace/              # slice: main screen
-│   │       ├── index.ts            # public API
-│   │       └── ui/                 # page shell: canvas + control panels
-│   │           ├── workspace.ts
-│   │           └── workspace.css
-│   ├── widgets/                    # layer
-│   │   └── block-canvas/           # slice: block pattern canvas
-│   │       ├── index.ts            # public API
-│   │       └── ui/                 # render + selection
-│   │           ├── canvas.ts
-│   │           └── canvas.css
-│   ├── features/                   # layer
-│   │   ├── color-picker/           # slice: color token editor
-│   │   │   ├── index.ts            # public API
-│   │   │   ├── ui/                 # control DOM + css
-│   │   │   └── model/              # interaction state
-│   │   ├── size-control/           # slice: size/spacing token editor
-│   │   │   ├── index.ts
-│   │   │   ├── ui/
-│   │   │   └── model/
-│   │   └── radius-control/         # slice: radius token editor
-│   │       ├── index.ts
-│   │       ├── ui/
-│   │       └── model/
-│   ├── entities/                   # layer
-│   │   ├── token/                  # slice: design token
-│   │   │   ├── index.ts            # public API
-│   │   │   └── model/              # types, defaults, store, CSS var sync
-│   │   └── pattern/                # slice: block/pattern model
-│   │       ├── index.ts
-│   │       └── model/              # block tree model
+│   ├── pages/                      # layer — trống (.gitkeep)
+│   ├── widgets/                    # layer — trống (.gitkeep)
+│   ├── features/                   # layer — trống (.gitkeep)
+│   ├── entities/                   # layer — trống (.gitkeep)
 │   └── shared/                     # layer: no slices
-│       ├── lib/                    # focused utils: color, dom, storage
-│       └── ui/                     # UI kit: base primitives, no business logic
+│       ├── lib/                    # trống (.gitkeep)
+│       └── ui/                     # trống (.gitkeep)
 └── src-tauri/                      # Rust shell
     ├── src/
     │   ├── main.rs                 # binary entry
@@ -68,7 +40,33 @@ design-studio/
     └── icons/                      # app icons
 ```
 
-Note: sample target structure — named slices (`workspace`, `block-canvas`, `color-picker`, ...) are created incrementally, one at a time, as research defines them. Current `src/` holds `app/` base, `shared/` segments, `pages/workspace` (first slice), and empty `widgets/`, `features/`, `entities/`.
+## Cấu trúc mẫu (ví dụ — KHÔNG tạo sẵn)
+
+Slice tên thật (theo business domain) chỉ được tạo tăng dần, mỗi lần một slice, sau khi research.
+Tên `example` dưới đây chỉ là mẫu generic — không overfit vào bất kỳ app cụ thể nào.
+
+```
+ownlish/
+├── pages/example/                  # slice mẫu: 1 màn hình
+│   ├── index.ts                    # public API
+│   └── ui/
+│       ├── example.ts
+│       └── example.css
+├── widgets/example/                # slice mẫu: block tự đứng, tái dùng giữa pages
+│   ├── index.ts
+│   └── ui/
+├── features/example/               # slice mẫu: 1 tương tác người dùng
+│   ├── index.ts
+│   ├── ui/
+│   └── model/
+├── entities/example/               # slice mẫu: 1 business entity
+│   ├── index.ts
+│   ├── model/                      # types, state, logic thuần
+│   └── ui/
+└── shared/                         # layer: no slices
+    ├── lib/                        # utils thuần, không business logic
+    └── ui/                         # UI kit dùng chung, không business logic
+```
 
 ## Layer rules
 
@@ -82,12 +80,12 @@ Note: sample target structure — named slices (`workspace`, `block-canvas`, `co
 ## Naming
 
 - Layers: fixed FSD names (app, pages, widgets, features, entities, shared)
-- Slices: business domain, kebab-case (`color-picker`)
+- Slices: business domain, kebab-case
 - Segments: standard names `ui`, `model`, `lib`, `api`, `config` — purpose, not essence (no `components`, `hooks`, `types`)
 - Files: kebab-case; CSS one file per module, BEM `block__element--modifier`; TS PascalCase types/classes, camelCase functions
 
 ## Rust (`src-tauri/`)
 
 - `main.rs`: binary entry, calls `lib::run()`
-- `lib.rs`: `tauri::Builder` — empty for now; project save/load commands added here when needed
+- `lib.rs`: `tauri::Builder` — empty for now; app commands added here when needed
 - `capabilities/default.json`: `core:default` only
