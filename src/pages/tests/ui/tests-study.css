@@ -5,7 +5,7 @@
     height: 100%;
   }
 
-  .test__part-raw {
+  .test__question-raw {
     flex: 1;
     min-height: 0;
     overflow-y: auto;

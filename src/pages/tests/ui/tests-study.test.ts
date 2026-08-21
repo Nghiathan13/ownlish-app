@@ -14,6 +14,17 @@ const test: CatalogTest = {
   ],
 };
 
+const question1 = {
+  id: "ets19-t01-p1-q001",
+  number: 1,
+  audio: "toeic/ets_19/test_01/audio/001.mp3",
+  options: [
+    { key: "A", en: "She's searching in her handbag.", vi: "Cô ấy đang lục tìm." },
+  ],
+};
+
+const partContent = JSON.stringify({ items: [question1, { id: "q2" }] });
+
 beforeEach(() => {
   queryClient.clear();
 });
@@ -23,14 +34,28 @@ afterEach(() => {
 });
 
 describe("renderTestsStudyPage", () => {
-  it("shows a placeholder when no parts exist", async () => {
+  it("shows a no-parts placeholder when no part files exist", async () => {
     mockIPC(() => []);
     const root = document.createElement("div");
     renderTestsStudyPage(root, test, vi.fn());
 
     await vi.waitFor(() =>
-      expect(root.querySelector(".test__part-raw")?.textContent).toBe(
+      expect(root.querySelector(".test__question-raw")?.textContent).toBe(
         "no parts found",
+      ),
+    );
+  });
+
+  it("shows a no-questions placeholder when the part has no items", async () => {
+    mockIPC(() => [
+      { path: "content/toeic/ets19-t01/part_1.json", content: "{\"items\":[]}" },
+    ]);
+    const root = document.createElement("div");
+    renderTestsStudyPage(root, test, vi.fn());
+
+    await vi.waitFor(() =>
+      expect(root.querySelector(".test__question-raw")?.textContent).toBe(
+        "no questions found",
       ),
     );
   });
@@ -57,32 +82,30 @@ describe("renderTestsStudyPage", () => {
     ]);
   });
 
-  it("renders the first part file content raw", async () => {
-    const part1 = JSON.stringify({ items: [{ id: "ets19-t01-p1-q001" }] });
+  it("renders only the first question raw", async () => {
     mockIPC(() => [
-      { path: "content/toeic/ets19-t01/part_1.json", content: part1 },
-      { path: "content/toeic/ets19-t01/part_2.json", content: "{}" },
+      { path: "content/toeic/ets19-t01/part_1.json", content: partContent },
     ]);
-
     const root = document.createElement("div");
     renderTestsStudyPage(root, test, vi.fn());
 
     await vi.waitFor(() =>
-      expect(root.querySelector(".test__part-raw")?.textContent).toBe(part1),
+      expect(root.querySelector(".test__question-raw")?.textContent).toBe(
+        JSON.stringify(question1, null, 2),
+      ),
     );
   });
 
-  it("shows an error state and logs when the preload fails", async () => {
+  it("shows an error state when the preload fails", async () => {
     mockIPC(() => {
       throw new Error("fs error");
     });
     const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-
     const root = document.createElement("div");
     renderTestsStudyPage(root, test, vi.fn());
 
     await vi.waitFor(() =>
-      expect(root.querySelector(".test__part-raw")?.textContent).toBe(
+      expect(root.querySelector(".test__question-raw")?.textContent).toBe(
         "failed to load test parts",
       ),
     );

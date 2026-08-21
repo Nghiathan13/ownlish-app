@@ -5,6 +5,10 @@ import { queryClient } from "@/shared/api";
 import { renderTestsTopnav } from "./tests-topnav";
 import { renderTestsBotnav } from "./tests-botnav";
 
+interface PartFileShape {
+  items?: unknown[];
+}
+
 export function renderTestsStudyPage(
   root: HTMLElement,
   test: CatalogTest,
@@ -15,25 +19,31 @@ export function renderTestsStudyPage(
   const page = document.createElement("div");
   page.className = "test";
 
-  // raw render of the first part file until the real part UI lands
-  const part1 = document.createElement("pre");
-  part1.className = "test__part-raw";
+  // raw render of the first question until the real question UI lands
+  const questionRaw = document.createElement("pre");
+  questionRaw.className = "test__question-raw";
 
-  page.append(renderTestsTopnav(onBack), part1, renderTestsBotnav());
+  page.append(renderTestsTopnav(onBack), questionRaw, renderTestsBotnav());
   root.append(page);
 
-  // cached preload: fresh entries (5 min) skip the fs read
+  // preload all part JSONs (short-lived cache), then show question 1 verbatim
   fetchTestParts(queryClient, test)
     .then((parts) => {
       const first = parts[0];
       if (!first) {
-        part1.textContent = "no parts found";
+        questionRaw.textContent = "no parts found";
         return;
       }
-      part1.textContent = first.content;
+      const part = JSON.parse(first.content) as PartFileShape;
+      const question = part.items?.[0];
+      if (!question) {
+        questionRaw.textContent = "no questions found";
+        return;
+      }
+      questionRaw.textContent = JSON.stringify(question, null, 2);
     })
     .catch((error) => {
       console.error(`[test] preload failed for ${test.id}:`, error);
-      part1.textContent = "failed to load test parts";
+      questionRaw.textContent = "failed to load test parts";
     });
 }
