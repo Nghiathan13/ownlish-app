@@ -1,10 +1,10 @@
 import arrowLeft from "~icons/lucide/arrow-left";
 import chevronLeft from "~icons/lucide/chevron-left";
 import chevronRight from "~icons/lucide/chevron-right";
-import chevronsLeft from "~icons/lucide/chevrons-left";
-import chevronsRight from "~icons/lucide/chevrons-right";
 import fileText from "~icons/lucide/file-text";
 import layoutDashboard from "~icons/lucide/layout-dashboard";
+import panelLeftClose from "~icons/lucide/panel-left-close";
+import panelLeftOpen from "~icons/lucide/panel-left-open";
 
 import "./icon.css";
 
@@ -14,10 +14,10 @@ export const ICONS = {
   "arrow-left": arrowLeft,
   "chevron-left": chevronLeft,
   "chevron-right": chevronRight,
-  "chevrons-left": chevronsLeft,
-  "chevrons-right": chevronsRight,
   "file-text": fileText,
   "layout-dashboard": layoutDashboard,
+  "panel-left-close": panelLeftClose,
+  "panel-left-open": panelLeftOpen,
 } as const;
 
 export type IconName = keyof typeof ICONS;

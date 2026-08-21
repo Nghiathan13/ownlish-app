@@ -21,10 +21,10 @@ export function renderSidebar(
     sidebar.replaceChildren();
     sidebar.classList.toggle("shell__sidebar--expanded", expanded);
 
-    // toggle sits above the nav items: chevrons-right (expand) / chevrons-left (collapse)
+    // toggle sits above the nav items: panel-left-open (expand) / panel-left-close (collapse)
     sidebar.append(
       createIconButton({
-        icon: expanded ? "chevrons-left" : "chevrons-right",
+        icon: expanded ? "panel-left-close" : "panel-left-open",
         label: expanded ? "Collapse sidebar" : "Expand sidebar",
         variant: "ghost",
         onClick: () => {
