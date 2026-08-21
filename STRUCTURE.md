@@ -67,6 +67,8 @@ design-studio/
     └── icons/                      # app icons
 ```
 
+Note: sample target structure — named slices (`workspace`, `block-canvas`, `color-picker`, ...) are created incrementally, one at a time, as research defines them. Current `src/` holds layers only: `app/` base, `shared/` segments, and empty `pages/`, `widgets/`, `features/`, `entities/`.
+
 ## Layer rules
 
 - Dependency direction is one-way: app → pages → widgets → features → entities → shared
