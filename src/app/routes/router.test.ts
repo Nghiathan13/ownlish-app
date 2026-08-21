@@ -42,26 +42,29 @@ describe("createRouter", () => {
     expect(active?.getAttribute("aria-label")).toBe("Dashboard");
   });
 
-  it("renders the study page with a back button for the selected test", () => {
+  it("renders the study page full-screen without the sidebar", () => {
     const root = document.createElement("div");
     createRouter(root)("test", catalog.tests[0]);
     expect(root.querySelector('button[aria-label="Back"]')).not.toBeNull();
+    expect(root.querySelector(".shell")).toBeNull();
   });
 
-  it("navigates to the study page when a card is clicked", () => {
+  it("navigates to the full-screen study page when a card is clicked", () => {
     const root = document.createElement("div");
     const navigate = createRouter(root);
     navigate("tests");
     root.querySelector<HTMLButtonElement>("button.tests__card")?.click();
     expect(root.querySelector('button[aria-label="Back"]')).not.toBeNull();
+    expect(root.querySelector(".shell")).toBeNull();
   });
 
-  it("returns to the overview when the back button is clicked", () => {
+  it("returns to the overview (with sidebar) when the back button is clicked", () => {
     const root = document.createElement("div");
     const navigate = createRouter(root);
     navigate("test", catalog.tests[0]);
     root.querySelector<HTMLButtonElement>('button[aria-label="Back"]')?.click();
     expect(root.querySelector(".tests__grid")).not.toBeNull();
+    expect(root.querySelector(".shell")).not.toBeNull();
   });
 
   it("falls back to the overview when navigating to test without a test", () => {

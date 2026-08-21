@@ -22,7 +22,7 @@ ownlish/
 │   │   │   └── main.ts             # bootstrap: load catalog (store) → start router
 │   │   ├── routes/                 # router config
 │   │   │   ├── index.ts
-│   │   │   └── router.ts           # in-memory router: tests/dashboard/test
+│   │   │   └── router.ts           # in-memory router: tests/dashboard/test (study full-screen)
 │   │   └── styles/                 # global styles
 │   │       ├── variables.css       # design tokens (only place for literal colors)
 │   │       ├── reset.css
