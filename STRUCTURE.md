@@ -48,7 +48,12 @@ ownlish/
 │   │   └── ui/
 │   │       ├── dashboard.ts
 │   │       └── dashboard.css
-│   ├── widgets/                    # layer — trống (.gitkeep)
+│   ├── widgets/sidebar/             # slice: nav sidebar (items config, active state)
+│   │   ├── index.ts                 # public API
+│   │   └── ui/
+│   │       ├── sidebar.ts/.css
+│   │       └── sidebar.test.ts
+│   ├── features/                   # layer — trống (.gitkeep)
 │   ├── features/                   # layer — trống (.gitkeep)
 │   ├── entities/toeic-catalog/      # slice: catalog entity
 │   │   ├── index.ts                 # public API
@@ -66,8 +71,7 @@ ownlish/
 │       └── ui/                     # UI kit generic (không business logic)
 │           ├── icon.ts/.css        # createIcon — Iconify raw SVG (lucide set)
 │           ├── button.ts/.css      # createIconButton (bordered/ghost, active)
-│           ├── shell.ts/.css       # app shell layout (sidebar + content)
-│           └── sidebar.ts/.css     # nav sidebar (items config, active state)
+│           └── shell.ts/.css       # app shell layout (sidebar + content)
 └── src-tauri/                      # Rust shell
     ├── src/
     │   ├── main.rs                 # binary entry

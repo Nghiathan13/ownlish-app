@@ -1,7 +1,8 @@
 import type { CatalogTest } from "@/entities/toeic-catalog";
 import { renderTestsOverviewPage, renderTestsStudyPage } from "@/pages/tests";
 import { renderDashboardPage } from "@/pages/dashboard";
-import { renderShell, renderSidebar, type SidebarItem } from "@/shared/ui";
+import { renderShell } from "@/shared/ui";
+import { renderSidebar, type SidebarItem } from "@/widgets/sidebar";
 
 export type RouteName = "tests" | "dashboard" | "test";
 export type Navigate = (route: RouteName, test?: CatalogTest) => void;

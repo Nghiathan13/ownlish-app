@@ -1,5 +1,4 @@
-import { createIconButton } from "./button";
-import type { IconName } from "./icon";
+import { createIconButton, type IconName } from "@/shared/ui";
 import "./sidebar.css";
 
 export interface SidebarItem {
