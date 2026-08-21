@@ -1,7 +1,7 @@
 # ownlish — Structure
 
 Frontend: vanilla TypeScript (no UI framework) in `src/`, Tauri 2 shell in `src-tauri/`.
-Architecture: Feature-Sliced Design v2.1 (feature-sliced.design).
+Architecture: Feature-Sliced Design v2.1 (feature-sliced.design) for the frontend; a layered Rust backend for `src-tauri/`.
 
 ## Directory tree (hiện tại)
 
@@ -57,7 +57,6 @@ ownlish/
 │   │       ├── sidebar.ts/.css
 │   │       └── sidebar.test.ts
 │   ├── features/                   # layer — trống (.gitkeep)
-│   ├── features/                   # layer — trống (.gitkeep)
 │   ├── entities/toeic-catalog/      # slice: catalog entity
 │   │   ├── index.ts                 # public API
 │   │   ├── model/
@@ -78,7 +77,17 @@ ownlish/
 └── src-tauri/                      # Rust shell
     ├── src/
     │   ├── main.rs                 # binary entry
-    │   └── lib.rs                  # Tauri builder + commands (read_catalog, read_content_files)
+    │   ├── lib.rs                  # composition root: modules, Tauri builder, command registration
+    │   ├── commands/
+    │   │   └── catalog.rs           # IPC adapter: read_catalog, read_content_files
+    │   ├── services/
+    │   │   └── catalog.rs           # catalog use cases; no Tauri or filesystem detail
+    │   ├── storage/
+    │   │   ├── paths.rs             # canonicalize + containment checks; colocated path-safety tests
+    │   │   └── catalog_files.rs     # local catalog/content file reads; colocated tests
+    │   ├── models/
+    │   │   └── ipc.rs               # serializable IPC response DTOs; colocated serialization test
+    │   └── error.rs                 # serializable AppError; colocated IPC error test
     ├── capabilities/default.json   # core:default + fs scope ($APPDATA/**)
     ├── tauri.conf.json             # window, CSP, bundle
     ├── Cargo.toml
@@ -101,8 +110,20 @@ ownlish/
 - Segments: standard names `ui`, `model`, `lib`, `api`, `config` — purpose, not essence (no `components`, `hooks`, `types`)
 - Files: kebab-case; CSS one file per module, BEM `block__element--modifier`; TS PascalCase types/classes, camelCase functions
 
-## Rust (`src-tauri/`)
+## Rust backend (`src-tauri/`)
 
-- `main.rs`: binary entry, calls `lib::run()`
-- `lib.rs`: `tauri::Builder` + app commands (`read_catalog`, `read_content_files`)
-- `capabilities/default.json`: `core:default` + fs scope (`$APPDATA/**`)
+`main.rs` is the binary entry and only calls `ownlish_lib::run()`. `lib.rs` is the composition root: it declares backend modules, configures Tauri, and registers commands.
+
+### Dependency direction
+
+`commands → services → storage`, with `models` and `error` shared by the layers that need them.
+
+- `commands/`: the only Tauri IPC adapter. It resolves app-scoped dependencies and delegates work; it contains no filesystem access or business rules.
+- `services/`: use-case orchestration. It accepts Rust-native dependencies (`&Path`, request data) and does not import Tauri.
+- `storage/`: the only filesystem boundary. `paths.rs` owns relative-path validation, canonicalization, and root containment checks.
+- `models/ipc.rs`: serializable request/response DTOs at the frontend boundary; add domain models only once Rust owns domain validation or transformations.
+- `error.rs`: `AppError` keeps failure cases explicit and serializes safely across IPC.
+
+Rust modules stay private by default; expose only `pub(crate)` items needed across these internal boundaries. Create a module only with its first real use case—no empty backend layers or speculative repository traits.
+
+`capabilities/default.json` scopes plugin permissions, but command-side path checks remain mandatory because Rust code is the final filesystem security boundary.

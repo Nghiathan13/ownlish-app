@@ -27,10 +27,13 @@
 - Command: `pnpm test` (CI, single run) / `pnpm test:watch` (dev) / `pnpm test:coverage` (coverage + gate)
 - Tests are colocated: `*.test.ts` next to the code, inside the same segment
 - Tauri IPC is mocked with the official `@tauri-apps/api/mocks` `mockIPC()` — no Rust backend runs
-- Coverage gate (enforced in CI): statements/branches/functions/lines ≥ 90% — current: 99/94/100/99
-- Rust unit tests: `cargo test` (src-tauri) — path-safety of `read_content_files` (absolute/`..`/symlink escape)
+- Coverage gate (enforced in CI): statements/branches/functions/lines ≥ 90% — current: 100/100/100/100 (177/177 statements, 47/47 branches, 42/42 functions, 167/167 lines)
+- Rust coverage: `pnpm run test:rust:coverage` uses `cargo-llvm-cov`; lines, functions, and regions must each be ≥ 90%. CI installs `cargo-llvm-cov` and runs this gate. Current core coverage: 100.00% lines (177/177), 100.00% functions (24/24), 98.88% regions (353/357).
+- Rust coverage scope is `error`, `models`, `services`, and `storage`. It excludes `commands/` and `lib.rs`, whose thin Tauri runtime wiring is verified by `cargo test`, `cargo clippy`, and `pnpm tauri build --no-bundle` rather than headless unit coverage.
+- Rust checks: `pnpm run test:rust`, `cd src-tauri && cargo fmt --check`, and `cargo clippy -- -D warnings`
+- Rust unit tests are colocated with their modules: `commands/catalog.rs` covers app-data path composition; `services/catalog.rs` covers the service boundary; `storage/paths.rs` covers absolute/`..`/symlink/missing-file safety; `storage/catalog_files.rs` covers catalog/content reads; `models/ipc.rs` and `error.rs` pin IPC serialization.
 - Part preload is cached short-term via TanStack Query (`shared/api/query-client.ts` — staleTime/gcTime 5 min, no retry; `entities/toeic-catalog/api/test-parts-query.ts`)
-- Coverage (31 tests):
+- Coverage (72 tests):
   - `app/entrypoint` — main.ts bootstrap (load → overview render, catalog failure message)
   - `app/routes` — router (tests ↔ test navigation, card click, fallback)
   - `entities/toeic-catalog/api` — loadCatalog (`read_catalog` + JSON parse), loadTestParts (paths + mapping), test-parts-query (cache miss/hit/clear, key scope, client defaults)

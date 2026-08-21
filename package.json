@@ -12,7 +12,9 @@
     "check:style": "stylelint \"src/**/*.css\"",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "test:rust": "cargo test --manifest-path src-tauri/Cargo.toml",
+    "test:rust:coverage": "cargo llvm-cov --manifest-path src-tauri/Cargo.toml --lib --ignore-filename-regex 'src/(commands/|lib\\.rs)' --summary-only --fail-under-lines 90 --fail-under-functions 90 --fail-under-regions 90"
   },
   "dependencies": {
     "@tanstack/query-core": "^5.101.4",
