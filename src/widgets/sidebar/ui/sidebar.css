@@ -2,7 +2,7 @@
   .shell__sidebar {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;   /* collapsed: content flush left, padding unchanged */
     gap: 8px;
     flex-shrink: 0;
     width: var(--sidebar-width-rail);
