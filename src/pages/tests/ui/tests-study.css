@@ -14,7 +14,7 @@
 
   .test__part-raw {
     margin: 0;
-    font: 12px/1.6 monospace;
+    font: var(--font-size-sm) / var(--line-height-sm) var(--font-family-mono);
     white-space: pre-wrap;
     overflow-wrap: anywhere;
     color: var(--color-text);
