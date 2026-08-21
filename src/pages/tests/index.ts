@@ -1,1 +1,2 @@
-export { renderTestsPage } from "./ui/tests";
+export { renderTestsOverviewPage } from "./ui/tests-overview";
+export { renderTestsStudyPage } from "./ui/tests-study";

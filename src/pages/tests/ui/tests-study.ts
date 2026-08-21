@@ -1,8 +1,8 @@
-import "./test.css";
+import "./tests-study.css";
 import type { CatalogTest } from "@/entities/toeic-catalog";
 import { loadTestParts } from "@/entities/toeic-catalog";
 
-export function renderTestPage(root: HTMLElement, test: CatalogTest): void {
+export function renderTestsStudyPage(root: HTMLElement, test: CatalogTest): void {
   root.replaceChildren();
 
   const page = document.createElement("div");

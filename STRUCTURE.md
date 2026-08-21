@@ -26,24 +26,27 @@ ownlish/
 │   │       ├── reset.css
 │   │       ├── typography.css
 │   │       └── global.css
-│   ├── pages/test/                  # slice: single test screen (parts preload + part picker)
-│   │   ├── index.ts                 # public API
-│   │   └── ui/
-│   │       ├── test.ts
-│   │       └── test.css
-│   ├── pages/tests/                 # slice: tests list (cards grid)
+│   ├── pages/tests/                 # slice: 2 màn thật (overview + study)
 │   │   ├── index.ts                 # public API
 │   │   ├── lib/
 │   │   │   └── tests.ts             # view-model: series label, complete, ...
 │   │   └── ui/
-│   │       ├── tests.ts
-│   │       ├── tests.css
-│   │       ├── test-card.ts
+│   │       ├── tests-overview.ts    # màn 1: load catalog + card grid
+│   │       ├── tests-overview.css
+│   │       ├── tests-study.ts       # màn 2: preload part JSON (chưa render)
+│   │       ├── tests-study.css
+│   │       ├── test-card.ts         # card — ở page tới khi có consumer thứ 2
 │   │       └── test-card.css
 │   ├── widgets/                    # layer — trống (.gitkeep)
 │   ├── features/                   # layer — trống (.gitkeep)
-│   ├── entities/                   # layer — trống (.gitkeep)
-│   └── shared/                     # layer: no slices
+│   ├── entities/toeic-catalog/      # slice: catalog entity
+│   │   ├── index.ts                 # public API
+│   │   ├── model/
+│   │   │   └── types.ts             # Catalog, CatalogTest, CatalogPart, ...
+│   │   └── api/
+│   │       ├── loadCatalog.ts       # invoke("read_catalog")
+│   │       └── loadTestParts.ts     # invoke("read_content_files") — preload part JSON
+│   └── shared/                      # layer: no slices
 │       ├── lib/                    # trống (.gitkeep)
 │       └── ui/                     # trống (.gitkeep)
 └── src-tauri/                      # Rust shell

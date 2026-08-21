@@ -1,10 +1,10 @@
-import "./tests.css";
+import "./tests-overview.css";
 import type { Catalog, CatalogTest } from "@/entities/toeic-catalog";
 import { loadCatalog } from "@/entities/toeic-catalog";
 import { buildTestCardViewModel } from "../lib/tests";
 import { renderTestCard } from "./test-card";
 
-export function renderTestsPage(
+export function renderTestsOverviewPage(
   root: HTMLElement,
   onSelectTest: (test: CatalogTest) => void,
 ): void {
