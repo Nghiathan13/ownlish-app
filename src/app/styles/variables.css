@@ -6,6 +6,7 @@
     /* semantic — theme-aware (light-dark() resolves via color-scheme) */
     --color-surface: light-dark(#fff, #0f0f0f);
     --color-text: light-dark(#161616, #e4e4e4);
+    --color-border: light-dark(#e5e5e5, #272727);
 
     /* typography — root sizes in px, everything else in rem */
     --font-family-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
