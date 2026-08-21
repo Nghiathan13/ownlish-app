@@ -1,12 +1,12 @@
 @layer components {
-  .workspace {
+  .tests {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
   }
 
-  .workspace__text {
+  .tests__text {
     color: var(--color-text);
   }
 }

@@ -23,7 +23,11 @@ ownlish/
 │   │       ├── reset.css
 │   │       ├── typography.css
 │   │       └── global.css
-│   ├── pages/                      # layer — trống (.gitkeep)
+│   ├── pages/tests/                # slice: tests list (placeholder text center)
+│   │   ├── index.ts                # public API
+│   │   └── ui/
+│   │       ├── tests.ts
+│   │       └── tests.css
 │   ├── widgets/                    # layer — trống (.gitkeep)
 │   ├── features/                   # layer — trống (.gitkeep)
 │   ├── entities/                   # layer — trống (.gitkeep)
