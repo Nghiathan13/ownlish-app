@@ -1,4 +1,5 @@
 import "../styles/variables.css";
+import "@fontsource-variable/inter";
 import "../styles/reset.css";
 import "../styles/typography.css";
 import "../styles/global.css";

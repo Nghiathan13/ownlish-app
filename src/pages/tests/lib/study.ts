@@ -10,3 +10,9 @@ export function parseUnits(partContent: string): unknown[] {
   const part = JSON.parse(partContent) as PartFileShape;
   return part.items ?? part.groups ?? [];
 }
+
+export function unitsFromParts(
+  parts: readonly { content: string }[],
+): unknown[] {
+  return parts.flatMap((part) => parseUnits(part.content));
+}

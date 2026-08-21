@@ -29,7 +29,7 @@ const START_PARTS_MEASUREMENT_EXPRESSION = `(() => {
   const start = performance.now();
   let finished = false;
   const finish = () => {
-    if (finished || !document.querySelector('.test__question-raw')?.textContent?.length) return;
+    if (finished || !document.querySelector('.test__option[data-key="A"] .test__option-text')?.textContent?.length) return;
     finished = true;
     observer.disconnect();
     requestAnimationFrame(() => {

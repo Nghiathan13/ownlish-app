@@ -5,15 +5,57 @@
     height: 100%;
   }
 
-  .test__question-raw {
+  .test__body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     flex: 1;
     min-height: 0;
     overflow-y: auto;
     padding: 24px;
-    margin: 0;
-    font: var(--font-size-sm) / var(--line-height) var(--font-family-mono);
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
+  }
+
+  .test__document,
+  .test__question {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .test__prompt {
+    display: flex;
+    gap: 0.25em;
+    align-items: baseline;
     color: var(--color-text);
   }
+
+  .test__question-number {
+    flex-shrink: 0;
+  }
+
+  .test__question-text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .test__status,
+  .test__kind,
+  .test__transcript {
+    color: var(--color-text);
+  }
+
+  .test__transcript {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .test__status[hidden],
+  .test__document[hidden],
+  .test__kind[hidden],
+  .test__transcript[hidden],
+  .test__question[hidden],
+  .test__question-text[hidden] {
+    display: none;
+  }
 }
+

@@ -1,0 +1,32 @@
+@layer components {
+  .test__options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0;
+  }
+
+  .test__options[hidden] {
+    display: none;
+  }
+
+  .test__option {
+    display: flex;
+    gap: 0.25em;
+    align-items: baseline;
+    color: var(--color-text);
+  }
+
+  .test__option[hidden] {
+    display: none;
+  }
+
+  .test__option-key {
+    flex-shrink: 0;
+  }
+
+  .test__option-text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+}

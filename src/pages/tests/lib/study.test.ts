@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseUnits } from "./study";
+import { parseUnits, unitsFromParts } from "./study";
 
 describe("parseUnits", () => {
   it("returns items when the part has items", () => {
@@ -19,5 +19,16 @@ describe("parseUnits", () => {
 
   it("throws on invalid JSON", () => {
     expect(() => parseUnits("not json{")).toThrow(SyntaxError);
+  });
+});
+
+describe("unitsFromParts", () => {
+  it("flattens items then groups across part files", () => {
+    expect(
+      unitsFromParts([
+        { content: JSON.stringify({ items: [{ id: "q1" }] }) },
+        { content: JSON.stringify({ groups: [{ id: "g1" }] }) },
+      ]),
+    ).toEqual([{ id: "q1" }, { id: "g1" }]);
   });
 });
