@@ -37,6 +37,8 @@ ownlish/
 │   │       ├── tests-overview.css
 │   │       ├── tests-study.ts       # màn 2: navbar + back, preload + part 1 raw
 │   │       ├── tests-study.css
+│   │       ├── tests-navbar.ts      # navbar (border-bottom) + back button
+│   │       ├── tests-navbar.css
 │   │       ├── test-card.ts         # card — ở page tới khi có consumer thứ 2
 │   │       └── test-card.css
 │   ├── widgets/                    # layer — trống (.gitkeep)
