@@ -67,7 +67,7 @@ design-studio/
     └── icons/                      # app icons
 ```
 
-Note: sample target structure — named slices (`workspace`, `block-canvas`, `color-picker`, ...) are created incrementally, one at a time, as research defines them. Current `src/` holds layers only: `app/` base, `shared/` segments, and empty `pages/`, `widgets/`, `features/`, `entities/`.
+Note: sample target structure — named slices (`workspace`, `block-canvas`, `color-picker`, ...) are created incrementally, one at a time, as research defines them. Current `src/` holds `app/` base, `shared/` segments, `pages/workspace` (first slice), and empty `widgets/`, `features/`, `entities/`.
 
 ## Layer rules
 
