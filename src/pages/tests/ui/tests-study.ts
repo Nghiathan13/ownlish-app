@@ -20,6 +20,7 @@ export function renderTestsStudyPage(root: HTMLElement, test: CatalogTest): void
   root.append(page);
 
   // preload all part JSONs, then show part 1 verbatim
+  const t0 = performance.now();
   loadTestParts(test)
     .then((parts) => {
       const first = parts[0];
@@ -28,6 +29,9 @@ export function renderTestsStudyPage(root: HTMLElement, test: CatalogTest): void
         return;
       }
       part1.textContent = first.content;
+      console.log(
+        `[test] ${test.id}: ${parts.length} part files preloaded in ${(performance.now() - t0).toFixed(2)}ms`,
+      );
     })
     .catch((error) => {
       console.error(`[test] preload failed for ${test.id}:`, error);
