@@ -26,7 +26,7 @@ describe("createRouter", () => {
     expect(root.querySelector(".shell")).not.toBeNull();
     expect(root.querySelector(".tests__grid")).not.toBeNull();
     const active = root.querySelector<HTMLButtonElement>(
-      "button.shell__nav[aria-current='page']",
+      "button[aria-current='page']",
     );
     expect(active?.getAttribute("aria-label")).toBe("Tests");
   });
@@ -37,7 +37,7 @@ describe("createRouter", () => {
 
     expect(root.querySelector(".dashboard__title")?.textContent).toBe("Dashboard");
     const active = root.querySelector<HTMLButtonElement>(
-      "button.shell__nav[aria-current='page']",
+      "button[aria-current='page']",
     );
     expect(active?.getAttribute("aria-label")).toBe("Dashboard");
   });
@@ -45,7 +45,7 @@ describe("createRouter", () => {
   it("renders the study page with a back button for the selected test", () => {
     const root = document.createElement("div");
     createRouter(root)("test", catalog.tests[0]);
-    expect(root.querySelector("button.test__back")).not.toBeNull();
+    expect(root.querySelector('button[aria-label="Back"]')).not.toBeNull();
   });
 
   it("navigates to the study page when a card is clicked", () => {
@@ -53,14 +53,14 @@ describe("createRouter", () => {
     const navigate = createRouter(root);
     navigate("tests");
     root.querySelector<HTMLButtonElement>("button.tests__card")?.click();
-    expect(root.querySelector("button.test__back")).not.toBeNull();
+    expect(root.querySelector('button[aria-label="Back"]')).not.toBeNull();
   });
 
   it("returns to the overview when the back button is clicked", () => {
     const root = document.createElement("div");
     const navigate = createRouter(root);
     navigate("test", catalog.tests[0]);
-    root.querySelector<HTMLButtonElement>("button.test__back")?.click();
+    root.querySelector<HTMLButtonElement>('button[aria-label="Back"]')?.click();
     expect(root.querySelector(".tests__grid")).not.toBeNull();
   });
 

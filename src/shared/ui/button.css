@@ -1,0 +1,40 @@
+@layer components {
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background-color: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background-color: var(--color-hover);
+  }
+
+  .button:active {
+    background-color: var(--color-pressed);
+  }
+
+  .button:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-text);
+    outline-offset: 2px;
+  }
+
+  .button--bordered {
+    border: var(--border-width) solid var(--color-border);
+    background-color: var(--color-surface);
+  }
+
+  .button--active {
+    background-color: var(--color-accent);
+  }
+
+  .button--active:hover {
+    background-color: var(--color-accent-hover);
+  }
+}

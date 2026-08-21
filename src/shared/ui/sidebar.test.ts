@@ -12,7 +12,7 @@ describe("renderSidebar", () => {
     expect(sidebar.tagName).toBe("NAV");
     expect(sidebar.classList.contains("shell__sidebar")).toBe(true);
 
-    const buttons = sidebar.querySelectorAll<HTMLButtonElement>("button.shell__nav");
+    const buttons = sidebar.querySelectorAll<HTMLButtonElement>("button");
     expect(buttons).toHaveLength(2);
     expect(buttons[0].getAttribute("aria-label")).toBe("Tests");
     expect(buttons[1].getAttribute("aria-label")).toBe("Dashboard");
@@ -26,13 +26,13 @@ describe("renderSidebar", () => {
       "button[aria-current='page']",
     );
     expect(active?.getAttribute("aria-label")).toBe("Dashboard");
-    expect(active?.classList.contains("shell__nav--active")).toBe(true);
+    expect(active?.classList.contains("button--active")).toBe(true);
   });
 
   it("navigates on click with the item id", () => {
     const onNavigate = vi.fn();
     const sidebar = renderSidebar(ITEMS, "tests", onNavigate);
-    const buttons = sidebar.querySelectorAll<HTMLButtonElement>("button.shell__nav");
+    const buttons = sidebar.querySelectorAll<HTMLButtonElement>("button");
     buttons[1].click();
     expect(onNavigate).toHaveBeenCalledWith("dashboard");
   });

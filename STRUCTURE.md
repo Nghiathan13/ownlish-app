@@ -65,6 +65,7 @@ ownlish/
 │       ├── lib/                    # trống (.gitkeep)
 │       └── ui/                     # UI kit generic (không business logic)
 │           ├── icon.ts/.css        # createIcon — Iconify raw SVG (lucide set)
+│           ├── button.ts/.css      # createIconButton (bordered/ghost, active)
 │           ├── shell.ts/.css       # app shell layout (sidebar + content)
 │           └── sidebar.ts/.css     # nav sidebar (items config, active state)
 └── src-tauri/                      # Rust shell

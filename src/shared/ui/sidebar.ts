@@ -1,4 +1,5 @@
-import { createIcon, type IconName } from "./icon";
+import { createIconButton } from "./button";
+import type { IconName } from "./icon";
 import "./sidebar.css";
 
 export interface SidebarItem {
@@ -16,17 +17,15 @@ export function renderSidebar(
   sidebar.className = "shell__sidebar";
 
   for (const item of items) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "shell__nav";
-    button.setAttribute("aria-label", item.label);
-    button.append(createIcon(item.icon));
-    if (item.id === currentId) {
-      button.classList.add("shell__nav--active");
-      button.setAttribute("aria-current", "page");
-    }
-    button.addEventListener("click", () => onNavigate(item.id));
-    sidebar.append(button);
+    sidebar.append(
+      createIconButton({
+        icon: item.icon,
+        label: item.label,
+        variant: "ghost",
+        active: item.id === currentId,
+        onClick: () => onNavigate(item.id),
+      }),
+    );
   }
   return sidebar;
 }
