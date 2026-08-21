@@ -4,10 +4,7 @@ import { fetchTestParts } from "@/entities/toeic-catalog";
 import { queryClient } from "@/shared/api";
 import { renderTestsTopnav } from "./tests-topnav";
 import { renderTestsBotnav } from "./tests-botnav";
-
-interface PartFileShape {
-  items?: unknown[];
-}
+import { parseQuestions } from "../lib/study";
 
 export function renderTestsStudyPage(
   root: HTMLElement,
@@ -60,8 +57,7 @@ export function renderTestsStudyPage(
         botnav.setNavigation(false, false);
         return;
       }
-      const part = JSON.parse(first.content) as PartFileShape;
-      state.questions = part.items ?? [];
+      state.questions = parseQuestions(first.content);
       state.index = 0;
       if (state.questions.length === 0) {
         questionRaw.textContent = "no questions found";

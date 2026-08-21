@@ -31,7 +31,8 @@ ownlish/
 │   ├── pages/tests/                 # slice: 2 màn thật (overview + study)
 │   │   ├── index.ts                 # public API
 │   │   ├── lib/
-│   │   │   └── tests.ts             # view-model: series label, complete, ...
+│   │   │   ├── tests.ts             # view-model: series label, complete, ...
+│   │   │   └── study.ts             # view-model: parseQuestions (part → items)
 │   │   └── ui/
 │   │       ├── tests-overview.ts    # màn 1: card grid từ catalog store (load ở bootstrap)
 │   │       ├── tests-overview.css
