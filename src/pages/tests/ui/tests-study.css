@@ -1,12 +1,22 @@
 @layer components {
   .test {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
     height: 100%;
+    padding: 24px;
+    overflow-y: auto;
   }
 
   .test__text {
+    color: var(--color-text);
+  }
+
+  .test__part-raw {
+    margin: 0;
+    font: 12px/1.6 monospace;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
     color: var(--color-text);
   }
 }

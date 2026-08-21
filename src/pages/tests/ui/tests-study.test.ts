@@ -18,11 +18,17 @@ afterEach(() => {
 });
 
 describe("renderTestsStudyPage", () => {
-  it("renders the selected test id", () => {
+  it("renders the selected test id and a placeholder when no parts exist", async () => {
     mockIPC(() => []);
     const root = document.createElement("div");
     renderTestsStudyPage(root, test);
+
     expect(root.querySelector(".test__text")?.textContent).toBe("ets19-t01");
+    await vi.waitFor(() =>
+      expect(root.querySelector(".test__part-raw")?.textContent).toBe(
+        "no parts found",
+      ),
+    );
   });
 
   it("preloads part files via read_content_files with the test paths", async () => {
@@ -47,23 +53,22 @@ describe("renderTestsStudyPage", () => {
     ]);
   });
 
-  it("logs a summary counting files with content", async () => {
+  it("renders the first part file content raw", async () => {
+    const part1 = JSON.stringify({ items: [{ id: "ets19-t01-p1-q001" }] });
     mockIPC(() => [
-      { path: "content/toeic/ets19-t01/part_1.json", content: '{"groups":[]}' },
-      { path: "content/toeic/ets19-t01/part_2.json", content: "   " },
+      { path: "content/toeic/ets19-t01/part_1.json", content: part1 },
+      { path: "content/toeic/ets19-t01/part_2.json", content: "{}" },
     ]);
-    const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
 
     const root = document.createElement("div");
     renderTestsStudyPage(root, test);
 
-    await vi.waitFor(() => expect(logSpy).toHaveBeenCalledOnce());
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining("2 part files loaded, 1 with content"),
+    await vi.waitFor(() =>
+      expect(root.querySelector(".test__part-raw")?.textContent).toBe(part1),
     );
   });
 
-  it("logs preload failures via console.error", async () => {
+  it("shows an error state and logs when the preload fails", async () => {
     mockIPC(() => {
       throw new Error("fs error");
     });
@@ -72,7 +77,11 @@ describe("renderTestsStudyPage", () => {
     const root = document.createElement("div");
     renderTestsStudyPage(root, test);
 
-    await vi.waitFor(() => expect(errorSpy).toHaveBeenCalledOnce());
+    await vi.waitFor(() =>
+      expect(root.querySelector(".test__part-raw")?.textContent).toBe(
+        "failed to load test parts",
+      ),
+    );
     expect(errorSpy).toHaveBeenCalledWith(
       expect.stringContaining("preload failed for ets19-t01"),
       expect.any(Error),

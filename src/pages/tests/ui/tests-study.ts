@@ -12,20 +12,25 @@ export function renderTestsStudyPage(root: HTMLElement, test: CatalogTest): void
   text.className = "test__text";
   text.textContent = test.id;
 
-  page.append(text);
+  // raw render of the first part file until the real part UI lands
+  const part1 = document.createElement("pre");
+  part1.className = "test__part-raw";
+
+  page.append(text, part1);
   root.append(page);
 
-  // preload part JSONs in parallel (not rendered yet)
+  // preload all part JSONs, then show part 1 verbatim
   loadTestParts(test)
     .then((parts) => {
-      const withContent = parts.filter(
-        (part) => part.content.trim() !== "",
-      ).length;
-      console.log(
-        `[test] ${test.id}: ${parts.length} part files loaded, ${withContent} with content`,
-      );
+      const first = parts[0];
+      if (!first) {
+        part1.textContent = "no parts found";
+        return;
+      }
+      part1.textContent = first.content;
     })
     .catch((error) => {
       console.error(`[test] preload failed for ${test.id}:`, error);
+      part1.textContent = "failed to load test parts";
     });
 }
