@@ -15,7 +15,6 @@
       "Liberation Mono", monospace;
     --font-size-base: 16px;
     --font-size-sm: 0.75rem;
-    --line-height-base: 1.5;
-    --line-height-sm: 1.6;
+    --line-height: 1.5;
   }
 }
