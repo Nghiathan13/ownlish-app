@@ -22,7 +22,7 @@ ownlish/
 │   │   │   └── main.ts             # bootstrap: load catalog (store) → start router
 │   │   ├── routes/                 # router config
 │   │   │   ├── index.ts
-│   │   │   └── router.ts           # in-memory router: tests <-> test
+│   │   │   └── router.ts           # in-memory router: tests/dashboard/test
 │   │   └── styles/                 # global styles
 │   │       ├── variables.css       # design tokens (only place for literal colors)
 │   │       ├── reset.css
@@ -43,6 +43,11 @@ ownlish/
 │   │       ├── tests-botnav.css
 │   │       ├── test-card.ts         # card — ở page tới khi có consumer thứ 2
 │   │       └── test-card.css
+│   ├── pages/dashboard/             # slice: màn dashboard (title, chờ content thật)
+│   │   ├── index.ts                 # public API
+│   │   └── ui/
+│   │       ├── dashboard.ts
+│   │       └── dashboard.css
 │   ├── widgets/                    # layer — trống (.gitkeep)
 │   ├── features/                   # layer — trống (.gitkeep)
 │   ├── entities/toeic-catalog/      # slice: catalog entity
@@ -58,9 +63,10 @@ ownlish/
 │       ├── api/
 │       │   └── query-client.ts      # TanStack Query client (short-lived cache defaults)
 │       ├── lib/                    # trống (.gitkeep)
-│       └── ui/
-│           ├── icon.ts             # createIcon — Iconify raw SVG (lucide set)
-│           └── icon.css            # .icon + spin/pulse motion utilities
+│       └── ui/                     # UI kit generic (không business logic)
+│           ├── icon.ts/.css        # createIcon — Iconify raw SVG (lucide set)
+│           ├── shell.ts/.css       # app shell layout (sidebar + content)
+│           └── sidebar.ts/.css     # nav sidebar (items config, active state)
 └── src-tauri/                      # Rust shell
     ├── src/
     │   ├── main.rs                 # binary entry

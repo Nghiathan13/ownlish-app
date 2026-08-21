@@ -19,11 +19,27 @@ beforeEach(() => {
 });
 
 describe("createRouter", () => {
-  it("renders the tests overview on the tests route", () => {
+  it("renders the shell with the tests overview and tests nav active", () => {
     const root = document.createElement("div");
     createRouter(root)("tests");
+
+    expect(root.querySelector(".shell")).not.toBeNull();
     expect(root.querySelector(".tests__grid")).not.toBeNull();
-    expect(root.querySelectorAll("button.tests__card")).toHaveLength(1);
+    const active = root.querySelector<HTMLButtonElement>(
+      "button.shell__nav[aria-current='page']",
+    );
+    expect(active?.getAttribute("aria-label")).toBe("Tests");
+  });
+
+  it("renders the dashboard page with the dashboard nav active", () => {
+    const root = document.createElement("div");
+    createRouter(root)("dashboard");
+
+    expect(root.querySelector(".dashboard__title")?.textContent).toBe("Dashboard");
+    const active = root.querySelector<HTMLButtonElement>(
+      "button.shell__nav[aria-current='page']",
+    );
+    expect(active?.getAttribute("aria-label")).toBe("Dashboard");
   });
 
   it("renders the study page with a back button for the selected test", () => {
