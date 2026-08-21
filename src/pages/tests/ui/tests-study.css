@@ -5,7 +5,6 @@
     gap: 12px;
     height: 100%;
     padding: 24px;
-    overflow-y: auto;
   }
 
   .test__back {
@@ -13,6 +12,7 @@
     align-items: center;
     justify-content: center;
     align-self: flex-start;
+    flex-shrink: 0;
     width: 40px;
     height: 40px;
     border: var(--border-width) solid var(--color-border);
@@ -36,6 +36,9 @@
   }
 
   .test__part-raw {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
     margin: 0;
     font: var(--font-size-sm) / var(--line-height) var(--font-family-mono);
     white-space: pre-wrap;
