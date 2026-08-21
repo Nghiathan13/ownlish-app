@@ -3,7 +3,7 @@
 Frontend: vanilla TypeScript (no UI framework) in `src/`, Tauri 2 shell in `src-tauri/`.
 Architecture: Feature-Sliced Design v2.1 (feature-sliced.design).
 
-## Directory tree (skeleton hiện tại — thật)
+## Directory tree (hiện tại)
 
 ```
 ownlish/
@@ -14,6 +14,8 @@ ownlish/
 ├── vite.config.ts                  # dev server, port 1420
 ├── README.md
 ├── STRUCTURE.md                    # this file
+├── TEST.md                         # testing guide (FSD, CSS governance, unit tests)
+├── vitest.setup.ts                 # test setup: WebCrypto polyfill + clearMocks
 ├── src/                            # frontend
 │   ├── app/                        # layer: bootstrap + global, no slices
 │   │   ├── entrypoint/
@@ -53,39 +55,11 @@ ownlish/
 └── src-tauri/                      # Rust shell
     ├── src/
     │   ├── main.rs                 # binary entry
-    │   └── lib.rs                  # Tauri builder (no commands yet)
-    ├── capabilities/default.json   # window permissions
+    │   └── lib.rs                  # Tauri builder + commands (read_catalog, read_content_files)
+    ├── capabilities/default.json   # core:default + fs scope ($APPDATA/**)
     ├── tauri.conf.json             # window, CSP, bundle
     ├── Cargo.toml
     └── icons/                      # app icons
-```
-
-## Cấu trúc mẫu (ví dụ — KHÔNG tạo sẵn)
-
-Slice tên thật (theo business domain) chỉ được tạo tăng dần, mỗi lần một slice, sau khi research.
-Tên `example` dưới đây chỉ là mẫu generic — không overfit vào bất kỳ app cụ thể nào.
-
-```
-ownlish/
-├── pages/example/                  # slice mẫu: 1 màn hình
-│   ├── index.ts                    # public API
-│   └── ui/
-│       ├── example.ts
-│       └── example.css
-├── widgets/example/                # slice mẫu: block tự đứng, tái dùng giữa pages
-│   ├── index.ts
-│   └── ui/
-├── features/example/               # slice mẫu: 1 tương tác người dùng
-│   ├── index.ts
-│   ├── ui/
-│   └── model/
-├── entities/example/               # slice mẫu: 1 business entity
-│   ├── index.ts
-│   ├── model/                      # types, state, logic thuần
-│   └── ui/
-└── shared/                         # layer: no slices
-    ├── lib/                        # utils thuần, không business logic
-    └── ui/                         # UI kit dùng chung, không business logic
 ```
 
 ## Layer rules
@@ -107,5 +81,5 @@ ownlish/
 ## Rust (`src-tauri/`)
 
 - `main.rs`: binary entry, calls `lib::run()`
-- `lib.rs`: `tauri::Builder` — empty for now; app commands added here when needed
-- `capabilities/default.json`: `core:default` only
+- `lib.rs`: `tauri::Builder` + app commands (`read_catalog`, `read_content_files`)
+- `capabilities/default.json`: `core:default` + fs scope (`$APPDATA/**`)
