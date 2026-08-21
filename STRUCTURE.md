@@ -19,6 +19,7 @@ design-studio/
 │   │   ├── entrypoint/
 │   │   │   └── main.ts             # app entry
 │   │   └── styles/                 # global styles
+│   │       ├── variables.css       # design tokens (only place for literal colors)
 │   │       ├── reset.css
 │   │       ├── typography.css
 │   │       └── global.css

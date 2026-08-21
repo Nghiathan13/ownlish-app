@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "tauri": "tauri",
-    "check:fsd": "steiger ./src"
+    "check:fsd": "steiger ./src",
+    "check:style": "stylelint \"src/**/*.css\""
   },
   "dependencies": {
     "@tauri-apps/api": "^2"
@@ -17,6 +18,9 @@
     "@feature-sliced/steiger-plugin": "^0.7.0",
     "@tauri-apps/cli": "^2",
     "steiger": "^0.6.0",
+    "stylelint": "^17.14.1",
+    "stylelint-config-recommended": "^18.0.0",
+    "stylelint-declaration-strict-value": "^1.11.1",
     "typescript": "~7.0.2",
     "vite": "^6.0.3"
   }

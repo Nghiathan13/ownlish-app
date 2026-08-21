@@ -6,5 +6,5 @@
 }
 
 .workspace__text {
-  color: #ffffff;
+  color: var(--color-text-primary);
 }
