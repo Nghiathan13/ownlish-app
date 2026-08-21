@@ -8,10 +8,12 @@
     --color-text: light-dark(#161616, #e4e4e4);
     --color-border: light-dark(#e5e5e5, #272727);
 
-    /* M3 state layers — on-color overlay (hover 8%, pressed 10%, selected 12%) */
+    /* M3 state layers — on-color overlay (hover 8%, pressed 10%) */
     --color-hover: color-mix(in srgb, var(--color-text) 8%, var(--color-surface));
     --color-pressed: color-mix(in srgb, var(--color-text) 10%, var(--color-surface));
-    --color-selected: color-mix(in srgb, var(--color-text) 12%, var(--color-surface));
+
+    /* solid container for active/selected surfaces (shadcn accent) */
+    --color-accent: light-dark(#f4f4f4, #333);
 
     /* typography — root sizes in px, everything else in rem */
     --font-family-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,

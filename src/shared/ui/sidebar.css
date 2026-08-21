@@ -32,7 +32,7 @@
 
   .shell__nav--active,
   .shell__nav--active:hover {
-    background-color: var(--color-selected);
+    background-color: var(--color-accent);
   }
 
   .shell__nav:focus-visible {
