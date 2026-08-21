@@ -76,6 +76,7 @@ Note: sample target structure — named slices (`workspace`, `block-canvas`, `co
 - Slices on the same layer cannot import each other
 - Code outside a slice imports it only via its public API (`index.ts`)
 - `app/` and `shared/` have no slices; their segments import each other freely
+- Conformance: `pnpm check:fsd` (steiger, FSD recommended rules) — run before every commit
 
 ## Naming
 

@@ -7,14 +7,17 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "check:fsd": "steiger ./src"
   },
   "dependencies": {
     "@tauri-apps/api": "^2"
   },
   "devDependencies": {
+    "@feature-sliced/steiger-plugin": "^0.7.0",
     "@tauri-apps/cli": "^2",
-    "vite": "^6.0.3",
-    "typescript": "~5.6.2"
+    "steiger": "^0.6.0",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.3"
   }
 }
