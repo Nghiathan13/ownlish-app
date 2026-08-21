@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@feature-sliced/steiger-plugin": "^0.7.0",
+    "@iconify-json/lucide": "^1.2.124",
     "@schalkneethling/stylelint-plugin-css-property-type-validator": "0.1.0-beta.1",
     "@tauri-apps/cli": "^2",
     "@vitest/coverage-v8": "^4.1.11",
@@ -31,6 +32,7 @@
     "stylelint-config-recommended": "^18.0.0",
     "stylelint-declaration-strict-value": "^1.11.1",
     "typescript": "~7.0.2",
+    "unplugin-icons": "^23.0.1",
     "vite": "^6.0.3",
     "vitest": "^4.1.11"
   }

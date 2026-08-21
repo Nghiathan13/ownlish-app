@@ -54,7 +54,9 @@ ownlish/
 │       ├── api/
 │       │   └── query-client.ts      # TanStack Query client (short-lived cache defaults)
 │       ├── lib/                    # trống (.gitkeep)
-│       └── ui/                     # trống (.gitkeep)
+│       └── ui/
+│           ├── icon.ts             # createIcon — Iconify raw SVG (lucide set)
+│           └── icon.css            # .icon + spin/pulse motion utilities
 └── src-tauri/                      # Rust shell
     ├── src/
     │   ├── main.rs                 # binary entry

@@ -1,4 +1,5 @@
 import { defineConfig } from "vitest/config";
+import Icons from "unplugin-icons/vite";
 
 // @ts-expect-error process is a nodejs global
 const host = process.env.TAURI_DEV_HOST;
@@ -9,6 +10,7 @@ export default defineConfig(async () => ({
   //
   // 1. prevent Vite from obscuring rust errors
   clearScreen: false,
+  plugins: [Icons({ compiler: "raw" })],
   // 2. tauri expects a fixed port, fail if that port is not available
   resolve: {
     alias: {
