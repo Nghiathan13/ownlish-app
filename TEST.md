@@ -20,4 +20,16 @@
 - `variables.css` (design tokens — single source of truth) is exempt from `function-disallowed-list`: the only place literal colors/functions may appear
 - Known gap (deferred): literal hex inside `linear-gradient()`/shadows is not yet caught — revisit when gradients are used
 
-Other test types (unit, integration, ...) to be added here as the app grows.
+## Unit tests
+
+- Framework: Vitest 4 + jsdom; config lives in `vite.config.ts` (shares the Vite pipeline and `@/` alias)
+- Setup: `vitest.setup.ts` — WebCrypto polyfill for jsdom + `clearMocks()` after each test
+- Command: `pnpm test` (CI, single run) / `pnpm test:watch` (dev)
+- Tests are colocated: `*.test.ts` next to the code, inside the same segment
+- Tauri IPC is mocked with the official `@tauri-apps/api/mocks` `mockIPC()` — no Rust backend runs
+- Coverage (21 tests):
+  - `entities/toeic-catalog/api` — loadCatalog (`read_catalog` + JSON parse), loadTestParts (paths + mapping)
+  - `entities/toeic-catalog/model` — catalog-store (idle → loading → ready / error transitions)
+  - `pages/tests/lib` — buildTestCardViewModel (ETS/YBM labels, complete = 7 parts)
+  - `pages/tests/ui` — test-card (button/title/click), tests-overview (grid + selection), tests-study (render + part preload)
+  - `app/routes` — router (tests ↔ test navigation, fallback)
