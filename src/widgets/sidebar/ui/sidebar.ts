@@ -22,17 +22,17 @@ export function renderSidebar(
     sidebar.classList.toggle("shell__sidebar--expanded", expanded);
 
     // toggle sits above the nav items: panel-left-open (expand) / panel-left-close (collapse)
-    sidebar.append(
-      createIconButton({
-        icon: expanded ? "panel-left-close" : "panel-left-open",
-        label: expanded ? "Collapse sidebar" : "Expand sidebar",
-        variant: "ghost",
-        onClick: () => {
-          toggle();
-          render();
-        },
-      }),
-    );
+    const toggleButton = createIconButton({
+      icon: expanded ? "panel-left-close" : "panel-left-open",
+      label: expanded ? "Collapse sidebar" : "Expand sidebar",
+      variant: "ghost",
+      onClick: () => {
+        toggle();
+        render();
+      },
+    });
+    toggleButton.classList.add("shell__sidebar-toggle");
+    sidebar.append(toggleButton);
 
     for (const item of items) {
       sidebar.append(

@@ -22,4 +22,11 @@
     width: 100%;
     justify-content: flex-start;
   }
+
+  /* expanded: the toggle button itself hugs the right edge (icon-sized) */
+  .shell__sidebar--expanded .shell__sidebar-toggle {
+    width: 40px;
+    justify-content: center;
+    margin-left: auto;
+  }
 }
