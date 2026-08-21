@@ -26,13 +26,24 @@
   }
 
   .button:disabled {
-    opacity: 38%;
-    pointer-events: none;
+    color: var(--color-disabled);
+    background-color: transparent;
+    cursor: not-allowed;
+  }
+
+  .button:disabled:hover,
+  .button:disabled:active {
+    background-color: transparent;
   }
 
   .button--bordered {
     border: var(--border-width) solid var(--color-border);
     background-color: var(--color-surface);
+  }
+
+  .button--bordered:disabled {
+    border-color: var(--color-disabled-container);
+    background-color: var(--color-disabled-container);
   }
 
   .button--active {

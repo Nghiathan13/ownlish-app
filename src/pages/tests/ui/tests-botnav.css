@@ -2,14 +2,10 @@
   .test__botnav {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 8px;
     flex-shrink: 0;
     padding: 12px 24px;
     border-top: var(--border-width) solid var(--color-border);
-  }
-
-  .test__botnav-text {
-    flex: 1;
-    color: var(--color-text);
   }
 }

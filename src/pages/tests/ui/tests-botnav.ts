@@ -13,10 +13,6 @@ export function renderTestsBotnav(nav: {
   const botnav = document.createElement("nav");
   botnav.className = "test__botnav";
 
-  const text = document.createElement("span");
-  text.className = "test__botnav-text";
-  text.textContent = "botnav";
-
   const prev = createIconButton({
     icon: "chevron-left",
     label: "Previous question",
@@ -32,7 +28,7 @@ export function renderTestsBotnav(nav: {
     onClick: nav.onNext,
   });
 
-  botnav.append(text, prev, next);
+  botnav.append(prev, next);
 
   return {
     element: botnav,

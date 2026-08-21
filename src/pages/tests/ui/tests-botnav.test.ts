@@ -2,12 +2,9 @@ import { describe, expect, it, vi } from "vitest";
 import { renderTestsBotnav } from "./tests-botnav";
 
 describe("renderTestsBotnav", () => {
-  it("renders the placeholder text and prev/next chevron buttons", () => {
+  it("renders the prev/next chevron buttons", () => {
     const { element } = renderTestsBotnav({ onPrev: vi.fn(), onNext: vi.fn() });
     expect(element.tagName).toBe("NAV");
-    expect(element.querySelector(".test__botnav-text")?.textContent).toBe(
-      "botnav",
-    );
     expect(
       element.querySelector('button[aria-label="Previous question"]'),
     ).not.toBeNull();
