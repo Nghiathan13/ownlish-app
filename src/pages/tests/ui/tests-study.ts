@@ -14,17 +14,22 @@ export function renderTestsStudyPage(
   const page = document.createElement("div");
   page.className = "test";
 
+  const navbar = document.createElement("nav");
+  navbar.className = "test__navbar";
+
   const back = document.createElement("button");
   back.type = "button";
   back.className = "test__back";
   back.append(createIcon("arrow-left"));
   back.addEventListener("click", onBack);
 
+  navbar.append(back);
+
   // raw render of the first part file until the real part UI lands
   const part1 = document.createElement("pre");
   part1.className = "test__part-raw";
 
-  page.append(back, part1);
+  page.append(navbar, part1);
   root.append(page);
 
   // cached preload: fresh entries (5 min) skip the fs read

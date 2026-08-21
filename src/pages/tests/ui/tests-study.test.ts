@@ -23,13 +23,15 @@ afterEach(() => {
 });
 
 describe("renderTestsStudyPage", () => {
-  it("renders a bordered back button with an icon and calls onBack on click", () => {
+  it("renders a navbar with a bordered back button and calls onBack on click", () => {
     mockIPC(() => []);
     const root = document.createElement("div");
     const onBack = vi.fn();
     renderTestsStudyPage(root, test, onBack);
 
-    const back = root.querySelector<HTMLButtonElement>("button.test__back");
+    const navbar = root.querySelector<HTMLElement>("nav.test__navbar");
+    expect(navbar).not.toBeNull();
+    const back = navbar?.querySelector<HTMLButtonElement>("button.test__back");
     expect(back).not.toBeNull();
     expect(back?.querySelector("svg")).not.toBeNull();
     back?.click();

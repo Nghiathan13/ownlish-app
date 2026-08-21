@@ -35,7 +35,7 @@ ownlish/
 │   │   └── ui/
 │   │       ├── tests-overview.ts    # màn 1: card grid từ catalog store (load ở bootstrap)
 │   │       ├── tests-overview.css
-│   │       ├── tests-study.ts       # màn 2: preload part JSON + render part 1 raw + back
+│   │       ├── tests-study.ts       # màn 2: navbar + back, preload + part 1 raw
 │   │       ├── tests-study.css
 │   │       ├── test-card.ts         # card — ở page tới khi có consumer thứ 2
 │   │       └── test-card.css
