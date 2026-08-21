@@ -1,10 +1,12 @@
-.workspace {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
+@layer components {
+  .workspace {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
 
-.workspace__text {
-  color: var(--color-text-primary);
+  .workspace__text {
+    color: var(--color-text-primary);
+  }
 }

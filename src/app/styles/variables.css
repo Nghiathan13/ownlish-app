@@ -1,5 +1,10 @@
-:root {
-  --color-surface: #2f2f2f;
-  --color-text: #f6f6f6;
-  --color-text-primary: #fff;
+/* cascade layer order — single source of truth, must stay first */
+@layer reset, tokens, base, components, utilities;
+
+@layer tokens {
+  :root {
+    --color-surface: #2f2f2f;
+    --color-text: #f6f6f6;
+    --color-text-primary: #fff;
+  }
 }

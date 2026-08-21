@@ -1,8 +1,15 @@
-:root {
-  color: var(--color-text);
-  background-color: var(--color-surface);
-}
+@layer base {
+  :root {
+    color: var(--color-text);
+    background-color: var(--color-surface);
+    color-scheme: dark;
+  }
 
-#app {
-  height: 100vh;
+  body {
+    min-height: 100dvh;
+  }
+
+  #app {
+    height: 100dvh;
+  }
 }
