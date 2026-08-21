@@ -1,0 +1,14 @@
+@layer components {
+  .test__botnav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 12px 24px;
+    border-top: var(--border-width) solid var(--color-border);
+  }
+
+  .test__botnav-text {
+    color: var(--color-text);
+  }
+}

@@ -39,6 +39,8 @@ ownlish/
 │   │       ├── tests-study.css
 │   │       ├── tests-topnav.ts       # topnav (border-bottom) + back button
 │   │       ├── tests-topnav.css
+│   │       ├── tests-botnav.ts       # botnav (border-top) — placeholder
+│   │       ├── tests-botnav.css
 │   │       ├── test-card.ts         # card — ở page tới khi có consumer thứ 2
 │   │       └── test-card.css
 │   ├── widgets/                    # layer — trống (.gitkeep)
