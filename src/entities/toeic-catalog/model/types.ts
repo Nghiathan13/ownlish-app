@@ -1,8 +1,3 @@
-export interface CatalogMedia {
-  audio?: string;
-  image?: string;
-}
-
 export interface CatalogPart {
   number: number;
   path: string;
@@ -27,5 +22,4 @@ export interface Catalog {
   schemaVersion: number;
   tests: CatalogTest[];
   partPractice: CatalogPartPractice[];
-  mediaByGroupId: Record<string, CatalogMedia>;
 }
