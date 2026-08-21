@@ -96,6 +96,23 @@ describe("renderTestsStudyPage", () => {
     );
   });
 
+  it("renders a blank unit without treating it as a question", async () => {
+    mockIPC(() => [
+      {
+        path: "content/toeic/ets19-t01/part_1.json",
+        content: JSON.stringify({ items: [null, { id: "q2" }] }),
+      },
+    ]);
+    const root = document.createElement("div");
+    renderTestsStudyPage(root, test, vi.fn());
+
+    const next = root.querySelector<HTMLButtonElement>(
+      'button[aria-label="Next question"]',
+    );
+    await vi.waitFor(() => expect(next?.disabled).toBe(false));
+    expect(root.querySelector(".test__question-raw")?.textContent).toBe("");
+  });
+
   it("navigates to the next question and enables prev", async () => {
     const questions = [
       { id: "q1", number: 1 },
@@ -130,6 +147,13 @@ describe("renderTestsStudyPage", () => {
     );
     expect(prev?.disabled).toBe(false);
     expect(next?.disabled).toBe(true);
+
+    prev?.click();
+    expect(root.querySelector(".test__question-raw")?.textContent).toBe(
+      JSON.stringify(questions[0], null, 2),
+    );
+    expect(prev?.disabled).toBe(true);
+    expect(next?.disabled).toBe(false);
   });
 
   it("navigates across parts (items then groups)", async () => {

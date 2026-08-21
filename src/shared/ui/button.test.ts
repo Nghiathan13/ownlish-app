@@ -60,4 +60,16 @@ describe("createIconButton", () => {
     });
     expect(button.disabled).toBe(true);
   });
+
+  it("renders its optional visible label", () => {
+    const button = createIconButton({
+      icon: "file-text",
+      label: "Tests",
+      text: "Tests",
+      variant: "ghost",
+      onClick: vi.fn(),
+    });
+
+    expect(button.querySelector(".button__label")?.textContent).toBe("Tests");
+  });
 });

@@ -42,6 +42,16 @@ describe("createRouter", () => {
     expect(active?.getAttribute("aria-label")).toBe("Dashboard");
   });
 
+  it("navigates from the sidebar", () => {
+    const root = document.createElement("div");
+    const navigate = createRouter(root);
+    navigate("tests");
+
+    root.querySelector<HTMLButtonElement>('button[aria-label="Dashboard"]')?.click();
+
+    expect(root.querySelector(".dashboard__title")?.textContent).toBe("Dashboard");
+  });
+
   it("renders the study page full-screen without the sidebar", () => {
     const root = document.createElement("div");
     createRouter(root)("test", catalog.tests[0]);

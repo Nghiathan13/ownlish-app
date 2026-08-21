@@ -1,4 +1,4 @@
-import { createIconButton, type IconName } from "@/shared/ui";
+import { createIcon, createIconButton, type IconName } from "@/shared/ui";
 import { sidebarStore } from "../model/sidebar-store";
 import "./sidebar.css";
 
@@ -16,38 +16,54 @@ export function renderSidebar(
   const sidebar = document.createElement("nav");
   sidebar.className = "shell__sidebar";
 
-  const render = (): void => {
-    const { expanded, toggle } = sidebarStore.getState();
-    sidebar.replaceChildren();
+  const toggleButton = createIconButton({
+    icon: "panel-left-open",
+    label: "Expand sidebar",
+    variant: "ghost",
+    onClick: () => {
+      sidebarStore.getState().toggle();
+      update();
+    },
+  });
+  toggleButton.classList.add("shell__sidebar-toggle");
+
+  const navButtons = items.map((item) => ({
+    item,
+    button: createIconButton({
+      icon: item.icon,
+      label: item.label,
+      variant: "ghost",
+      active: item.id === currentId,
+      onClick: () => onNavigate(item.id),
+    }),
+  }));
+
+  const update = (): void => {
+    const { expanded } = sidebarStore.getState();
     sidebar.classList.toggle("shell__sidebar--expanded", expanded);
 
-    // toggle sits above the nav items: panel-left-open (expand) / panel-left-close (collapse)
-    const toggleButton = createIconButton({
-      icon: expanded ? "panel-left-close" : "panel-left-open",
-      label: expanded ? "Collapse sidebar" : "Expand sidebar",
-      variant: "ghost",
-      onClick: () => {
-        toggle();
-        render();
-      },
-    });
-    toggleButton.classList.add("shell__sidebar-toggle");
-    sidebar.append(toggleButton);
+    toggleButton.setAttribute(
+      "aria-label",
+      expanded ? "Collapse sidebar" : "Expand sidebar",
+    );
+    toggleButton
+      .querySelector(".icon")
+      ?.replaceWith(createIcon(expanded ? "panel-left-close" : "panel-left-open"));
 
-    for (const item of items) {
-      sidebar.append(
-        createIconButton({
-          icon: item.icon,
-          label: item.label,
-          text: expanded ? item.label : undefined,
-          variant: "ghost",
-          active: item.id === currentId,
-          onClick: () => onNavigate(item.id),
-        }),
-      );
+    for (const { item, button } of navButtons) {
+      const label = button.querySelector(".button__label");
+      if (expanded && !label) {
+        const text = document.createElement("span");
+        text.className = "button__label";
+        text.textContent = item.label;
+        button.append(text);
+      } else if (!expanded) {
+        label?.remove();
+      }
     }
   };
 
-  render();
+  sidebar.append(toggleButton, ...navButtons.map(({ button }) => button));
+  update();
   return sidebar;
 }

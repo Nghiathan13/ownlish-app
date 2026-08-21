@@ -16,6 +16,15 @@
     width: var(--sidebar-width);
   }
 
+  .shell__sidebar .button--ghost {
+    transition: width 150ms;
+    justify-content: flex-start;
+  }
+
+  .shell__sidebar .shell__sidebar-toggle {
+    transition: transform 150ms;
+  }
+
   /* expanded: nav buttons become full-width rows with labels
      (padding/gap inherited from the base .button) */
   .shell__sidebar--expanded .button--ghost {
@@ -27,6 +36,6 @@
   .shell__sidebar--expanded .shell__sidebar-toggle {
     width: 40px;
     justify-content: center;
-    margin-left: auto;
+    transform: translateX(calc(var(--sidebar-width) - var(--sidebar-width-rail) - var(--border-width)));
   }
 }

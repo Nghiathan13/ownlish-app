@@ -1,6 +1,10 @@
+// @ts-expect-error Node's fs types are not part of the app compilation.
+import { readFileSync } from "node:fs";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { sidebarStore } from "../model/sidebar-store";
 import { renderSidebar, type SidebarItem } from "./sidebar";
+
+const sidebarStyles = readFileSync("src/widgets/sidebar/ui/sidebar.css", "utf8");
 
 const ITEMS: SidebarItem[] = [
   { id: "tests", label: "Tests", icon: "file-text" },
@@ -12,6 +16,20 @@ beforeEach(() => {
 });
 
 describe("renderSidebar", () => {
+  it("slides the toggle with the sidebar width transition", () => {
+    expect(sidebarStyles).toContain("transition: transform 150ms;");
+    expect(sidebarStyles).toContain(
+      "transform: translateX(calc(var(--sidebar-width) - var(--sidebar-width-rail) - var(--border-width)));",
+    );
+  });
+
+  it("keeps nav icons left-aligned while their width animates", () => {
+    expect(sidebarStyles).toContain(`.shell__sidebar .button--ghost {
+    transition: width 150ms;
+    justify-content: flex-start;
+  }`);
+  });
+
   it("renders a toggle button above the nav buttons (collapsed rail)", () => {
     const sidebar = renderSidebar(ITEMS, "tests", vi.fn());
     expect(sidebar.tagName).toBe("NAV");
@@ -42,6 +60,34 @@ describe("renderSidebar", () => {
     expect(testsButton?.querySelector(".button__label")?.textContent).toBe(
       "Tests",
     );
+  });
+
+  it("keeps the toggle button mounted while the sidebar state changes", () => {
+    const sidebar = renderSidebar(ITEMS, "tests", vi.fn());
+    const toggle = sidebar.querySelector<HTMLButtonElement>(
+      'button[aria-label="Expand sidebar"]',
+    );
+
+    toggle?.click();
+
+    expect(
+      sidebar.querySelector('button[aria-label="Collapse sidebar"]'),
+    ).toBe(toggle);
+  });
+
+  it("does not duplicate an existing nav label when expanding", () => {
+    const sidebar = renderSidebar(ITEMS, "tests", vi.fn());
+    const testsButton = sidebar.querySelector<HTMLButtonElement>(
+      'button[aria-label="Tests"]',
+    );
+    const label = document.createElement("span");
+    label.className = "button__label";
+    label.textContent = "Tests";
+    testsButton?.append(label);
+
+    sidebar.querySelector<HTMLButtonElement>('button[aria-label="Expand sidebar"]')?.click();
+
+    expect(testsButton?.querySelectorAll(".button__label")).toHaveLength(1);
   });
 
   it("collapses back on second toggle", () => {

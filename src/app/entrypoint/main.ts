@@ -5,10 +5,10 @@ import "../styles/global.css";
 import { catalogStore } from "@/entities/toeic-catalog";
 import { createRouter } from "../routes";
 
-const app = document.querySelector<HTMLDivElement>("#app");
-
 // catalog is app-wide data: load once at open, before the first screen renders
-async function bootstrap(): Promise<void> {
+export async function bootstrap(
+  app = document.querySelector<HTMLDivElement>("#app"),
+): Promise<void> {
   if (!app) {
     throw new Error("#app element not found");
   }

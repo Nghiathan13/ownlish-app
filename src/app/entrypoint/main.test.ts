@@ -45,4 +45,16 @@ describe("bootstrap (main.ts)", () => {
       ),
     );
   });
+
+  it("rejects when bootstrap is given no app root", async () => {
+    mockIPC((cmd) => {
+      if (cmd === "read_catalog") return JSON.stringify(catalog);
+      return [];
+    });
+    const entrypoint = (await import("./main")) as unknown as {
+      bootstrap: (root: HTMLDivElement | null) => Promise<void>;
+    };
+
+    await expect(entrypoint.bootstrap(null)).rejects.toThrow("#app element not found");
+  });
 });
