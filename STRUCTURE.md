@@ -49,8 +49,10 @@ ownlish/
 │   │   └── ui/
 │   │       ├── dashboard.ts
 │   │       └── dashboard.css
-│   ├── widgets/sidebar/             # slice: nav sidebar (items config, active state)
+│   ├── widgets/sidebar/             # slice: nav sidebar (collapsible rail, active state)
 │   │   ├── index.ts                 # public API
+│   │   ├── model/
+│   │   │   └── sidebar-store.ts     # zustand: expanded state (widget-owned)
 │   │   └── ui/
 │   │       ├── sidebar.ts/.css
 │   │       └── sidebar.test.ts

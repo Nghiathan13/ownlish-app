@@ -5,7 +5,21 @@
     align-items: center;
     gap: 8px;
     flex-shrink: 0;
+    width: var(--sidebar-width-rail);
     padding: 8px;
     border-right: var(--border-width) solid var(--color-border);
+    transition: width 150ms;
+    overflow: hidden;
+  }
+
+  .shell__sidebar--expanded {
+    width: var(--sidebar-width);
+  }
+
+  /* expanded: nav buttons become full-width rows with labels */
+  .shell__sidebar--expanded .button--ghost {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0 12px;
   }
 }
