@@ -16,7 +16,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const BASELINE_PATH = join(ROOT, ".github", "perf-baseline.json");
-const FLOOR_MS = 15;
+const FLOOR_MS = 5;
 const MARGIN = 1.3;
 
 const args = process.argv.slice(2);
