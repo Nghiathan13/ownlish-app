@@ -12,9 +12,6 @@ dist
 dist-ssr
 *.local
 
-# Local dev symlink to app data dir (~/.local/share/com.nghiathan13.ownlish)
-ownlish-data
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
