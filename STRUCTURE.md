@@ -23,11 +23,20 @@ ownlish/
 │   │       ├── reset.css
 │   │       ├── typography.css
 │   │       └── global.css
-│   ├── pages/tests/                # slice: tests list (placeholder text center)
-│   │   ├── index.ts                # public API
+│   ├── pages/test/                  # slice: single test screen (parts preload + part picker)
+│   │   ├── index.ts                 # public API
+│   │   └── ui/
+│   │       ├── test.ts
+│   │       └── test.css
+│   ├── pages/tests/                 # slice: tests list (cards grid)
+│   │   ├── index.ts                 # public API
+│   │   ├── model/
+│   │   │   └── tests.ts             # view-model: series label, complete, ...
 │   │   └── ui/
 │   │       ├── tests.ts
-│   │       └── tests.css
+│   │       ├── tests.css
+│   │       ├── test-card.ts
+│   │       └── test-card.css
 │   ├── widgets/                    # layer — trống (.gitkeep)
 │   ├── features/                   # layer — trống (.gitkeep)
 │   ├── entities/                   # layer — trống (.gitkeep)

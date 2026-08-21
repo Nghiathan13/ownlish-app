@@ -1,0 +1,15 @@
+@layer components {
+  /* inverted tokens: card bg = text color, card text = surface color —
+     visible on both themes without extra color tokens */
+  .tests__card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 12px;
+    border: 0;
+    border-radius: 12px;
+    background-color: var(--color-text);
+    color: var(--color-surface);
+    cursor: pointer;
+  }
+}

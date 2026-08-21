@@ -1,7 +1,15 @@
 import "./tests.css";
-import type { Catalog } from "@/entities/toeic-catalog";
+import type { Catalog, CatalogTest } from "@/entities/toeic-catalog";
+import { buildTestCardViewModel } from "../model/tests";
+import { renderTestCard } from "./test-card";
 
-export function renderTests(root: HTMLElement, catalog: Catalog): void {
+export function renderTests(
+  root: HTMLElement,
+  catalog: Catalog,
+  onSelectTest: (test: CatalogTest) => void,
+): void {
+  root.replaceChildren();
+
   const page = document.createElement("div");
   page.className = "tests";
 
@@ -9,10 +17,7 @@ export function renderTests(root: HTMLElement, catalog: Catalog): void {
   grid.className = "tests__grid";
 
   for (const test of catalog.tests) {
-    const card = document.createElement("div");
-    card.className = "tests__card";
-    card.textContent = test.id;
-    grid.append(card);
+    grid.append(renderTestCard(buildTestCardViewModel(test), test, onSelectTest));
   }
 
   page.append(grid);

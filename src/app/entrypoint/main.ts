@@ -2,7 +2,8 @@ import "../styles/variables.css";
 import "../styles/reset.css";
 import "../styles/typography.css";
 import "../styles/global.css";
-import { loadCatalog } from "@/entities/toeic-catalog";
+import { loadCatalog, loadTestParts } from "@/entities/toeic-catalog";
+import { renderTest } from "@/pages/test";
 import { renderTests } from "@/pages/tests";
 
 const app = document.querySelector<HTMLDivElement>("#app");
@@ -22,7 +23,24 @@ loadCatalog()
     console.log(
       `[catalog] ${catalog.tests.length} tests, ${complete} complete, schemaVersion ${catalog.schemaVersion}, loaded in ${(performance.now() - t0).toFixed(2)}ms`,
     );
-    renderTests(app, catalog);
+
+    renderTests(app, catalog, (test) => {
+      // navigate immediately to the blank test page, preload parts in parallel
+      renderTest(app, test.id);
+
+      loadTestParts(test)
+        .then((parts) => {
+          const withContent = parts.filter(
+            (part) => part.content.trim() !== "",
+          ).length;
+          console.log(
+            `[test] ${test.id}: ${parts.length} part files loaded, ${withContent} with content`,
+          );
+        })
+        .catch((error) => {
+          console.error(`[test] preload failed for ${test.id}:`, error);
+        });
+    });
   })
   .catch((error) => {
     console.error("[catalog] load failed:", error);
