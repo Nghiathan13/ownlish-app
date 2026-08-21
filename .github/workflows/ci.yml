@@ -24,6 +24,8 @@ jobs:
         run: pnpm check:fsd
       - name: CSS color governance (stylelint)
         run: pnpm check:style
+      - name: Unit tests (vitest)
+        run: pnpm test
       - name: Typecheck + build
         run: pnpm build
 

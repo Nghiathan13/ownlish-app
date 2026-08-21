@@ -9,7 +9,9 @@
     "preview": "vite preview",
     "tauri": "tauri",
     "check:fsd": "steiger ./src",
-    "check:style": "stylelint \"src/**/*.css\""
+    "check:style": "stylelint \"src/**/*.css\"",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@tauri-apps/api": "^2",
@@ -20,11 +22,13 @@
     "@feature-sliced/steiger-plugin": "^0.7.0",
     "@schalkneethling/stylelint-plugin-css-property-type-validator": "0.1.0-beta.1",
     "@tauri-apps/cli": "^2",
+    "jsdom": "^30.0.1",
     "steiger": "^0.6.0",
     "stylelint": "^17.14.1",
     "stylelint-config-recommended": "^18.0.0",
     "stylelint-declaration-strict-value": "^1.11.1",
     "typescript": "~7.0.2",
-    "vite": "^6.0.3"
+    "vite": "^6.0.3",
+    "vitest": "^4.1.11"
   }
 }

@@ -104,6 +104,14 @@ ownlish/
 - Segments: standard names `ui`, `model`, `lib`, `api`, `config` — purpose, not essence (no `components`, `hooks`, `types`)
 - Files: kebab-case; CSS one file per module, BEM `block__element--modifier`; TS PascalCase types/classes, camelCase functions
 
+## Testing
+
+- Framework: Vitest 4 + jsdom (DOM tests) — shares the Vite pipeline and `@/` alias
+- Tests are colocated next to the code: `*.test.ts` in the same segment
+- Tauri IPC is mocked with the official `@tauri-apps/api/mocks` `mockIPC()` — no Rust backend runs in tests (`vitest.setup.ts` adds the WebCrypto polyfill + clears mocks)
+- Run: `pnpm test` (CI, single run) / `pnpm test:watch` (dev)
+- CI runs tests in the `checks` job: fsd → style → test → build
+
 ## Rust (`src-tauri/`)
 
 - `main.rs`: binary entry, calls `lib::run()`
