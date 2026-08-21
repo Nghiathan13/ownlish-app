@@ -2,6 +2,15 @@
   :root {
     color: var(--color-text);
     background-color: var(--color-surface);
+    color-scheme: light dark;
+  }
+
+  /* manual theme override (toggle UI later) — light-dark() resolves from color-scheme */
+  :root[data-theme="light"] {
+    color-scheme: light;
+  }
+
+  :root[data-theme="dark"] {
     color-scheme: dark;
   }
 

@@ -25,6 +25,7 @@ export default {
       "oklab",
       "oklch",
       "color",
+      "light-dark",
     ],
     // var(--token) must reference an existing token (variables.css)
     "css-property-type-validator/valid-property-types": [
