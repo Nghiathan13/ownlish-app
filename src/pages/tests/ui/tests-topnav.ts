@@ -1,9 +1,9 @@
 import { createIcon } from "@/shared/ui";
-import "./tests-navbar.css";
+import "./tests-topnav.css";
 
-export function renderTestsNavbar(onBack: () => void): HTMLElement {
-  const navbar = document.createElement("nav");
-  navbar.className = "test__navbar";
+export function renderTestsTopnav(onBack: () => void): HTMLElement {
+  const topnav = document.createElement("nav");
+  topnav.className = "test__topnav";
 
   const back = document.createElement("button");
   back.type = "button";
@@ -11,6 +11,6 @@ export function renderTestsNavbar(onBack: () => void): HTMLElement {
   back.append(createIcon("arrow-left"));
   back.addEventListener("click", onBack);
 
-  navbar.append(back);
-  return navbar;
+  topnav.append(back);
+  return topnav;
 }

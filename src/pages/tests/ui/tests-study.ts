@@ -2,7 +2,7 @@ import "./tests-study.css";
 import type { CatalogTest } from "@/entities/toeic-catalog";
 import { fetchTestParts } from "@/entities/toeic-catalog";
 import { queryClient } from "@/shared/api";
-import { renderTestsNavbar } from "./tests-navbar";
+import { renderTestsTopnav } from "./tests-topnav";
 
 export function renderTestsStudyPage(
   root: HTMLElement,
@@ -18,7 +18,7 @@ export function renderTestsStudyPage(
   const part1 = document.createElement("pre");
   part1.className = "test__part-raw";
 
-  page.append(renderTestsNavbar(onBack), part1);
+  page.append(renderTestsTopnav(onBack), part1);
   root.append(page);
 
   // cached preload: fresh entries (5 min) skip the fs read

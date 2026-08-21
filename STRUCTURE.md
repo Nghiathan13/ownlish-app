@@ -35,10 +35,10 @@ ownlish/
 │   │   └── ui/
 │   │       ├── tests-overview.ts    # màn 1: card grid từ catalog store (load ở bootstrap)
 │   │       ├── tests-overview.css
-│   │       ├── tests-study.ts       # màn 2: navbar + back, preload + part 1 raw
+│   │       ├── tests-study.ts       # màn 2: topnav + back, preload + part 1 raw
 │   │       ├── tests-study.css
-│   │       ├── tests-navbar.ts      # navbar (border-bottom) + back button
-│   │       ├── tests-navbar.css
+│   │       ├── tests-topnav.ts       # topnav (border-bottom) + back button
+│   │       ├── tests-topnav.css
 │   │       ├── test-card.ts         # card — ở page tới khi có consumer thứ 2
 │   │       └── test-card.css
 │   ├── widgets/                    # layer — trống (.gitkeep)
