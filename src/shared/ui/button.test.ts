@@ -49,4 +49,15 @@ describe("createIconButton", () => {
     button.click();
     expect(onClick).toHaveBeenCalledOnce();
   });
+
+  it("disables the button when disabled is set", () => {
+    const button = createIconButton({
+      icon: "arrow-left",
+      label: "Back",
+      variant: "bordered",
+      disabled: true,
+      onClick: vi.fn(),
+    });
+    expect(button.disabled).toBe(true);
+  });
 });

@@ -96,6 +96,42 @@ describe("renderTestsStudyPage", () => {
     );
   });
 
+  it("navigates to the next question and enables prev", async () => {
+    const questions = [
+      { id: "q1", number: 1 },
+      { id: "q2", number: 2 },
+    ];
+    mockIPC(() => [
+      {
+        path: "content/toeic/ets19-t01/part_1.json",
+        content: JSON.stringify({ items: questions }),
+      },
+    ]);
+    const root = document.createElement("div");
+    renderTestsStudyPage(root, test, vi.fn());
+
+    await vi.waitFor(() =>
+      expect(root.querySelector(".test__question-raw")?.textContent).toBe(
+        JSON.stringify(questions[0], null, 2),
+      ),
+    );
+    const prev = root.querySelector<HTMLButtonElement>(
+      'button[aria-label="Previous question"]',
+    );
+    const next = root.querySelector<HTMLButtonElement>(
+      'button[aria-label="Next question"]',
+    );
+    expect(prev?.disabled).toBe(true);
+    expect(next?.disabled).toBe(false);
+
+    next?.click();
+    expect(root.querySelector(".test__question-raw")?.textContent).toBe(
+      JSON.stringify(questions[1], null, 2),
+    );
+    expect(prev?.disabled).toBe(false);
+    expect(next?.disabled).toBe(true);
+  });
+
   it("shows an error state when the preload fails", async () => {
     mockIPC(() => {
       throw new Error("fs error");

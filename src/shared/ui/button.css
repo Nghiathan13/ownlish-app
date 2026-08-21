@@ -25,6 +25,11 @@
     outline-offset: 2px;
   }
 
+  .button:disabled {
+    opacity: 38%;
+    pointer-events: none;
+  }
+
   .button--bordered {
     border: var(--border-width) solid var(--color-border);
     background-color: var(--color-surface);

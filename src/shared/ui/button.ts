@@ -9,6 +9,7 @@ export interface IconButtonConfig {
   label: string;
   variant: ButtonVariant;
   active?: boolean;
+  disabled?: boolean;
   onClick: () => void;
 }
 
@@ -20,6 +21,7 @@ export function createIconButton(config: IconButtonConfig): HTMLButtonElement {
     button.classList.add("button--active");
     button.setAttribute("aria-current", "page");
   }
+  button.disabled = config.disabled ?? false;
   button.setAttribute("aria-label", config.label);
   button.append(createIcon(config.icon));
   button.addEventListener("click", config.onClick);
