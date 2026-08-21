@@ -15,6 +15,9 @@ importers:
       '@feature-sliced/steiger-plugin':
         specifier: ^0.7.0
         version: 0.7.0(typescript@7.0.2)
+      '@schalkneethling/stylelint-plugin-css-property-type-validator':
+        specifier: 0.1.0-beta.1
+        version: 0.1.0-beta.1(stylelint@17.14.1(supports-color@10.2.2)(typescript@7.0.2))
       '@tauri-apps/cli':
         specifier: ^2
         version: 2.11.4
@@ -430,6 +433,14 @@ packages:
     resolution: {integrity: sha512-zD6NdeWEByGE9QF9vCrlJ5YQB4oq9q91kPZS37Jwj5hOkvR1lTBSpsKhKDw4IJtbQ35LsTS1HD9DZYGKIshU1Q==}
     cpu: [x64]
     os: [win32]
+
+  '@schalkneethling/css-property-type-validator-core@0.11.2':
+    resolution: {integrity: sha512-YbMhdB91jE8JvE94M3MwR+ttPqeYVBk2G5gHG+ye980RFmxcdj9cz75Or59Z7UXUirIkDw5BwEW6bcTO6y4+eg==}
+
+  '@schalkneethling/stylelint-plugin-css-property-type-validator@0.1.0-beta.1':
+    resolution: {integrity: sha512-vq6lpdRfzykD52VMeAAMpwEhwdqaOItYZqjfCjTFtYAQVMYYJJiVPz5tq8wH1IwTmsmW84rLKC+WeptUcpg0WQ==}
+    peerDependencies:
+      stylelint: ^17.0.0
 
   '@sindresorhus/merge-streams@2.3.0':
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
@@ -1471,6 +1482,15 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.62.4':
     optional: true
+
+  '@schalkneethling/css-property-type-validator-core@0.11.2':
+    dependencies:
+      css-tree: 3.2.1
+
+  '@schalkneethling/stylelint-plugin-css-property-type-validator@0.1.0-beta.1(stylelint@17.14.1(supports-color@10.2.2)(typescript@7.0.2))':
+    dependencies:
+      '@schalkneethling/css-property-type-validator-core': 0.11.2
+      stylelint: 17.14.1(supports-color@10.2.2)(typescript@7.0.2)
 
   '@sindresorhus/merge-streams@2.3.0': {}
 
