@@ -31,11 +31,17 @@ fn read_catalog(app: tauri::AppHandle) -> Result<String, String> {
     Ok(content)
 }
 
+#[derive(serde::Serialize)]
+struct ContentFile {
+    path: String,
+    content: String,
+}
+
 #[tauri::command]
 fn read_content_files(
     app: tauri::AppHandle,
     paths: Vec<String>,
-) -> Result<Vec<(String, String)>, String> {
+) -> Result<Vec<ContentFile>, String> {
     let data_root = app
         .path()
         .app_data_dir()
@@ -49,7 +55,10 @@ fn read_content_files(
     for path in &paths {
         let canon = resolve_content_path(&root_canon, path)?;
         let content = std::fs::read_to_string(&canon).map_err(|e| format!("read {path}: {e}"))?;
-        out.push((path.clone(), content));
+        out.push(ContentFile {
+            path: path.clone(),
+            content,
+        });
     }
     Ok(out)
 }
@@ -65,7 +74,7 @@ pub fn run() {
 
 #[cfg(test)]
 mod tests {
-    use super::resolve_content_path;
+    use super::{resolve_content_path, ContentFile};
     use std::fs;
     #[cfg(unix)]
     use std::os::unix::fs::symlink;
@@ -133,5 +142,17 @@ mod tests {
         let root_canon = root.canonicalize().unwrap();
         assert!(resolve_content_path(&root_canon, "nope.json").is_err());
         fs::remove_dir_all(&root).unwrap();
+    }
+
+    #[test]
+    fn content_file_serializes_as_object() {
+        // pin the IPC contract: { path, content } objects, NOT [path, content] tuples
+        let file = ContentFile {
+            path: "toeic/ets_19/test_01/part_1.json".into(),
+            content: "{}".into(),
+        };
+        let value = serde_json::to_value(&file).unwrap();
+        assert_eq!(value["path"], "toeic/ets_19/test_01/part_1.json");
+        assert_eq!(value["content"], "{}");
     }
 }
