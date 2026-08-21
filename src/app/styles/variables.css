@@ -24,5 +24,9 @@
 
     /* shape — card/container radius (M3 medium, Tailwind rounded-xl) */
     --radius: 0.75rem;
+
+    /* stroke — resting border 1px, focus ring 2px (WCAG 2.4.11) */
+    --border-width: 1px;
+    --focus-ring-width: 2px;
   }
 }
