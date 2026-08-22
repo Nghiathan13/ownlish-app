@@ -1,0 +1,24 @@
+@layer components {
+  .test__document {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .test__kind,
+  .test__transcript {
+    color: var(--color-text);
+  }
+
+  .test__transcript {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .test__document[hidden],
+  .test__kind[hidden],
+  .test__transcript[hidden] {
+    display: none;
+  }
+}
+

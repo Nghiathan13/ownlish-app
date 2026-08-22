@@ -1,9 +1,23 @@
+import { isGroupUnit, groupQuestionNumbers } from "./test-groups";
+import {
+  PART5_START_INDEX,
+  numberLabel,
+  questionNumberLabel,
+} from "./test-navigation";
+
 export const OPTION_KEYS = ["A", "B", "C", "D"] as const;
 export type OptionKey = (typeof OPTION_KEYS)[number];
 
 export interface ItemOption {
   key: string;
   en: string;
+}
+
+export interface QuestionViewData {
+  label: string;
+  stem: string;
+  options: readonly ItemOption[] | null;
+  selected?: OptionKey | null;
 }
 
 export const EMPTY_OPTIONS: ItemOption[] = OPTION_KEYS.map((key) => ({
@@ -46,6 +60,44 @@ export function readItemStem(unit: unknown): string {
   return unit.question.en;
 }
 
+/** Look up `question.en` and A–D options for each derived number. */
+export function groupQuestionContent(
+  unit: unknown,
+  numbers: readonly number[],
+): { stem: string; options: ItemOption[] | null }[] {
+  const byNumber = new Map<number, { stem: string; options: ItemOption[] | null }>();
+  if (
+    typeof unit === "object" &&
+    unit !== null &&
+    "questions" in unit &&
+    Array.isArray(unit.questions)
+  ) {
+    for (const entry of unit.questions) {
+      if (typeof entry !== "object" || entry === null) continue;
+      if (!("number" in entry) || typeof entry.number !== "number") continue;
+      const current = byNumber.get(entry.number) ?? {
+        stem: "",
+        options: null,
+      };
+      if (
+        "question" in entry &&
+        typeof entry.question === "object" &&
+        entry.question !== null &&
+        "en" in entry.question &&
+        typeof entry.question.en === "string"
+      ) {
+        current.stem = entry.question.en;
+      }
+      const options = readItemOptions(entry);
+      if (options) current.options = options;
+      byNumber.set(entry.number, current);
+    }
+  }
+  return numbers.map(
+    (number) => byNumber.get(number) ?? { stem: "", options: null },
+  );
+}
+
 /** Map item options onto the four A–D slots. Missing/unknown keys stay "". */
 export function optionTextsByKey(
   options: readonly ItemOption[] | null,
@@ -57,4 +109,28 @@ export function optionTextsByKey(
     }
   }
   return byKey;
+}
+
+/** Unified extractor: returns questions array for both single items and groups. */
+export function readUnitQuestions(
+  unit: unknown,
+  index: number,
+): QuestionViewData[] {
+  if (isGroupUnit(unit)) {
+    const numbers = groupQuestionNumbers(index, unit);
+    const contents = groupQuestionContent(unit, numbers);
+    return numbers.map((number, idx) => ({
+      label: numberLabel(number),
+      stem: contents[idx].stem,
+      options: contents[idx].options ?? EMPTY_OPTIONS,
+    }));
+  }
+
+  return [
+    {
+      label: questionNumberLabel(index),
+      stem: index >= PART5_START_INDEX ? readItemStem(unit) : "",
+      options: readItemOptions(unit),
+    },
+  ];
 }

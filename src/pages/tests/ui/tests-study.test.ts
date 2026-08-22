@@ -461,4 +461,19 @@ describe("renderTestsStudyPage", () => {
       expect.any(Error),
     );
   });
+
+  it("splits the body into left and right panes", () => {
+    mockIPC(() => []);
+    const root = document.createElement("div");
+    renderTestsStudyPage(root, test, vi.fn());
+
+    const leftPane = root.querySelector(".test__pane--left");
+    const rightPane = root.querySelector(".test__pane--right");
+
+    expect(leftPane).not.toBeNull();
+    expect(rightPane).not.toBeNull();
+    expect(leftPane?.querySelector(".test__status")).not.toBeNull();
+    expect(leftPane?.querySelectorAll(".test__document")).toHaveLength(3);
+    expect(rightPane?.querySelectorAll(".test__question")).toHaveLength(5);
+  });
 });

@@ -1,4 +1,26 @@
 @layer components {
+  .test__question {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .test__prompt {
+    display: flex;
+    gap: 0.25em;
+    align-items: baseline;
+    color: var(--color-text);
+  }
+
+  .test__question-number {
+    flex-shrink: 0;
+  }
+
+  .test__question-text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
   .test__options {
     display: flex;
     flex-direction: column;
@@ -12,21 +34,53 @@
 
   .test__option {
     display: flex;
-    gap: 0.25em;
-    align-items: baseline;
+    gap: 8px;
+    align-items: center;
+    padding: 8px 16px;
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface);
     color: var(--color-text);
+    cursor: pointer;
+  }
+
+  .test__option:hover {
+    background-color: var(--color-hover);
+  }
+
+  .test__option:active {
+    background-color: var(--color-pressed);
+  }
+
+  .test__option:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-text);
+    outline-offset: 2px;
+  }
+
+  .test__option--selected,
+  .test__option[aria-selected="true"] {
+    border-color: var(--color-text);
   }
 
   .test__option[hidden] {
     display: none;
   }
 
+  .test__option-icon {
+    flex-shrink: 0;
+  }
+
   .test__option-key {
     flex-shrink: 0;
   }
 
-  .test__option-text {
+  .test__option-content {
     min-width: 0;
     overflow-wrap: anywhere;
+  }
+
+  .test__question[hidden],
+  .test__question-text[hidden] {
+    display: none;
   }
 }

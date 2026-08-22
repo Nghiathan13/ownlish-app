@@ -1,4 +1,4 @@
-export { createIcon } from "./icon";
+export { createIcon, ICONS } from "./icon";
 export type { IconName } from "./icon";
 export { createIconButton } from "./button";
 export type { IconButtonConfig, ButtonVariant } from "./button";
